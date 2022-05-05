@@ -6,6 +6,9 @@ Multi-Wordle
 
 # Group Members
 Jessica Sarah Kow
+
 Faatimah Mahomed
+
+Zakhna Dhiraj 
 
 # END OF README
