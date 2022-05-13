@@ -1,6 +1,28 @@
 /* put style sheet things in here */
-h1{
-    color: rgb(226, 43, 171);
+h1 {
+   color: rgb(226, 43, 171);
+}
+
+/* for the game board */
+#wordle-board {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+
+.row {
+   display: flex;
+}
+
+.column-piece {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-transform: uppercase;
+   border: 2px solid rgb(156, 155, 155);
+   margin: 3px;
+   height: 3rem;
+   width: 3rem;
 }
 
 #keyboard {
@@ -30,3 +52,4 @@ h1{
   background-color: rgb(200, 200, 200);
   border-color: white;
 }
+
