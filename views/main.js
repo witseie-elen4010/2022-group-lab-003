@@ -22,3 +22,11 @@ function createWordleBoard() {
 }
 
 createWordleBoard();
+
+const wordList = ['abuse', 'above', 'after', 'basic', 'chest', 'dance', 'earth', 'filed', 'grant',
+  'house', 'image', 'judge', 'knife', 'light', 'major', 'night', 'other', 'paper', 'phone', 'reply', 'scale',
+  'table', 'uncle', 'value', 'waste', 'youth', 'world', 'truth', 'range', 'chief']
+
+const len = wordList.length
+
+const chosenWord = wordList[Math.floor(Math.random() * len)];
