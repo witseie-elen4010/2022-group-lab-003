@@ -1,4 +1,5 @@
 'use strict'
+// For routes and azure setup
 
 const path = require('path')
 const express = require('express')
@@ -21,4 +22,4 @@ console.log('Express server running on port', port)
 
 
 
- 
+
