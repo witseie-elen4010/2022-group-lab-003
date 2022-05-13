@@ -13,8 +13,65 @@
    <body>
       <p>The game page</p>
 
-      <!--Making the game board-->
-      <div id="wordle-board"></div>
-      <script src="main.js" type="module"></script>
-   </body>
+</head>
+
+<body bgcolor="#000000">
+<!--The background is set to be black while all font except for the word "MULTI" must be in white-->
+    <center>
+        <h1>
+            <font color = "#00FF00">M</font>
+            <font color = "#FFFF00">U</font>
+            <font color = "#707070">L</font>
+            <font color = "#00FF00">T</font>
+            <font color = "#FFFF00">I</font>
+            <font color = "#FFFFFF">- Wordle</font>
+        </h1> 
+        <hr>
+        <p>
+         <font color = "#FFFFFF">Enter a five letter word and we will tell you if you have guessed it correctly!</font>
+        </p>
+   </center>
+  <div id="wordle-board">
+    <script src="main.js" type="module"></script>
+        <br>
+         
+     <div id="keyboard">
+         <div class="first-row">
+             <button class="keyboard-button">q</button>
+             <button class="keyboard-button">w</button>
+             <button class="keyboard-button">e</button>
+             <button class="keyboard-button">r</button>
+             <button class="keyboard-button">t</button>
+             <button class="keyboard-button">y</button>
+             <button class="keyboard-button">u</button>
+             <button class="keyboard-button">i</button>
+             <button class="keyboard-button">o</button>
+             <button class="keyboard-button">p</button>
+         </div>
+         <div class="second-row">
+             <button class="keyboard-button">a</button>
+             <button class="keyboard-button">s</button>
+             <button class="keyboard-button">d</button>
+             <button class="keyboard-button">f</button>
+             <button class="keyboard-button">g</button>
+             <button class="keyboard-button">h</button>
+             <button class="keyboard-button">j</button>
+             <button class="keyboard-button">k</button>
+             <button class="keyboard-button">l</button>
+         </div>
+         <div class="third-row">
+             <button class="keyboard-button">Del</button>
+             <button class="keyboard-button">z</button>
+             <button class="keyboard-button">x</button>
+             <button class="keyboard-button">c</button>
+             <button class="keyboard-button">v</button>
+             <button class="keyboard-button">b</button>
+             <button class="keyboard-button">n</button>
+             <button class="keyboard-button">m</button>
+             <button class="keyboard-button">Enter</button>
+         </div>
+     </div>
+
+</body>
+
 </html>
