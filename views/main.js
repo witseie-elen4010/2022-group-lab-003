@@ -29,25 +29,31 @@ let guess = [] //contains the word that the player guesses
 let nextLetter = 0 //keeps track of which letter we are on
 
 document.getElementById("keyboard").addEventListener("click", (event) => {
-    if (tries === 0) {
-        return
-    }
+   if (tries === 0) {
+      return
+   }
     
-    const target = event.target
-    //if the key that was clicked is not a keyboard button
-    if (!target.classList.contains("keyboard-button")) {
-        return
-    }
+   const target = event.target
+   //if the key that was clicked is not a keyboard button
+   if (!target.classList.contains("keyboard-button")) {
+      return
+   }
 
-    let key = target.textContent
+   let key = target.textContent
+   if (key === "Del") {
+      deleteLetter()
+      return
+   } 
 
-    //checking if the key is any of the alphabet
-    let found = key.match(/[a-z]/gi)
-    if (!found || found.length > 1) {//if none of the above or they pressed more than 1 key
-        return
-    } else {
-        insertLetter(key)
-    }
+   //checking if the key is any of the alphabet
+   let found = key.match(/[a-z]/gi)
+   if (!found || found.length > 1) {//if none of the above or they pressed more than 1 key
+      return
+   }
+   else{
+      insertLetter(key)
+   }
+
 })
 
 function insertLetter (input) {
@@ -66,4 +72,18 @@ function insertLetter (input) {
    box.classList.add("column-piece")//adding current letter to guess
    guess.push(input)//adds 1 to number of letters in row
    nextLetter += 1
+}
+
+function deleteLetter () {
+   if (nextLetter === 0) {//can't delete if there are no letters yet
+      return
+   }
+   let row = document.getElementsByClassName("row")[6 - tries]
+   //gets the column for the previous letter guess
+   let box = row.children[nextLetter - 1]
+   box.textContent = ""
+   box.classList.remove("column-piece")//this removes the piece entirely
+   box.classList.add("column-piece")//need to replace it with a new blank piece
+   guess.pop()//remove the letter from the guessed word
+   nextLetter -= 1
 }
