@@ -43,6 +43,11 @@ document.getElementById("keyboard").addEventListener("click", (event) => {
    if (key === "Del") {
       deleteLetter()
       return
+   }
+
+   if (key === "Enter") {
+      checkLength()
+      return
    } 
 
    //checking if the key is any of the alphabet
@@ -86,4 +91,11 @@ function deleteLetter () {
    box.classList.add("column-piece")//need to replace it with a new blank piece
    guess.pop()//remove the letter from the guessed word
    nextLetter -= 1
+}
+
+function checkLength(){
+   if (guess.length != 5){//checks the length of the array
+      //does not allow player to do anything
+      return
+   }
 }
