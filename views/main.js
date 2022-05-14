@@ -22,3 +22,48 @@ function createWordleBoard() {
 }
 
 createWordleBoard();
+
+//keyboard CLICK input
+let tries = 6 // number of words that player is allowed to guess
+let guess = [] //contains the word that the player guesses
+let nextLetter = 0 //keeps track of which letter we are on
+
+document.getElementById("keyboard").addEventListener("click", (event) => {
+    if (tries === 0) {
+        return
+    }
+    
+    const target = event.target
+    //if the key that was clicked is not a keyboard button
+    if (!target.classList.contains("keyboard-button")) {
+        return
+    }
+
+    let key = target.textContent
+
+    //checking if the key is any of the alphabet
+    let found = key.match(/[a-z]/gi)
+    if (!found || found.length > 1) {//if none of the above or they pressed more than 1 key
+        return
+    } else {
+        insertLetter(key)
+    }
+})
+
+function insertLetter (input) {
+   if (nextLetter === 5) {
+       return
+   }
+   input = input.toLowerCase()
+
+   //gets the row of the current guess
+   let row = document.getElementsByClassName("row")[6 - tries]
+   //getting the column for the current guess
+   let box = row.children[nextLetter]
+
+   //adding the letter to the column piece 
+   box.textContent = input
+   box.classList.add("column-piece")//adding current letter to guess
+   guess.push(input)//adds 1 to number of letters in row
+   nextLetter += 1
+}
