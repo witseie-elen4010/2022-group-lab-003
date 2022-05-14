@@ -32,8 +32,8 @@ const len = wordList.length
 const chosenWord = wordList[Math.floor(Math.random() * len)]
 
 // keyboard CLICK input
-const tries = 6 // number of words that player is allowed to guess
-const guess = [] // contains the word that the player guesses
+let tries = 6 // number of words that player is allowed to guess
+let guess = [] // contains the word that the player guesses
 let nextLetter = 0 // keeps track of which letter we are on
 
 document.getElementById('keyboard').addEventListener('click', (event) => {
@@ -110,5 +110,28 @@ function checkInput () {
 
   if (inputString.length != 5) {
     alert('Invalid: word length')
+    return
+  }
+
+  if (!wordList.includes(inputString)) {
+    alert('Invalid: not on list')
+    tries -= 1
+    guess = []
+    nextLetter = 0
+    return
+  }
+
+  if (inputString === chosenWord) {
+    alert('Correct! You win!')
+    tries = 0
+  } else {
+    tries -= 1
+    guess = []
+    nextLetter = 0
+
+    if (tries === 0) {
+      alert('You lose. Guesses ran out.')
+      alert(`Correct word: "${chosenWord}"`)
+    }
   }
 }
