@@ -111,4 +111,11 @@ function checkInput () {
   if (inputString.length != 5) {
     alert('Invalid: word length')
   }
+
+  if (!wordList.includes(inputString))
+  {
+      alert("Invalid: not on list")
+      
+  }
+
 }
