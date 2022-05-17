@@ -2,9 +2,9 @@
 
 DATE: 16 May 2022
 
-# Minutes:
+## Minutes:
 
--  What was the initial goal for sprint 1?
+###  What was the initial goal for sprint 1?
 
 -  Single user game where the player has 6 guesses to guess a word, thereafter are declared a winner or loser depending if they guessed the word correctly.
 
@@ -12,7 +12,7 @@ DATE: 16 May 2022
 
 -  The node application needed to be deployed to Azure.
 
--  What was the actual outcome of sprint 1?
+###  What was the actual outcome of sprint 1?
 
 -  The game was displayed correctly. The web application has a game title, instructions, a 6x5 board where the user inputs the guesses and it also has a virtual keyboard containing the letters of the alphabet as well as an enter and delete button.
 
@@ -22,7 +22,7 @@ DATE: 16 May 2022
 
 -  We experienced issues deploying to Azure which resulted in the postponement of the due date.
 
--  What were the reasons for sprint 1’s outcomes?
+###  What were the reasons for sprint 1’s outcomes?
 
 -  The due date was delayed due to bad time management as well as overly ambitious goals.
 
@@ -34,7 +34,7 @@ DATE: 16 May 2022
 
 -  Loadshedding affected our communication and delayed our meetings which conributed to mistakes in our time management as well as the delay in completing sprint 1.
 
--  What could have been done to improve the sprint 1 release?
+###  What could have been done to improve the sprint 1 release?
 
 -  A database of words could have been used instead of a list of words.
 
@@ -52,7 +52,7 @@ DATE: 16 May 2022
 
 -  Can’t delete letters after pressing ENTER key since it goes to the next row
 
--  How did we work together as a team?
+###  How did we work together as a team?
 
 -  We worked well as a team but improvements can be made to increase efficiency.
 
@@ -114,6 +114,8 @@ DATE: 16 May 2022
 
 -  Formula:
 
-   Sum of all story points / no. of sprints
-   = 1+6+4+4+9+4+9+2+2+21
-   = 43
+   `Sum of all story points / no. of sprints`
+   
+   `= (1 + 6 + 4 + 4 + 9 + 4 + 9 + 2 + 2 + 2) / 1`
+   
+   `= 43`
