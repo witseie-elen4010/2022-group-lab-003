@@ -1,6 +1,6 @@
 'use strict'
 
-function createWordleBoard () {
+function createWordleBoard() {
   const board = document.getElementById('wordle-board')
 
   // the board creation is the same as how a 2d array is created (nested-for loop).
@@ -23,9 +23,38 @@ function createWordleBoard () {
 
 createWordleBoard()
 
-const wordList = ['abuse', 'above', 'after', 'basic', 'chest', 'dance', 'earth', 'filed', 'grant',
-  'house', 'image', 'judge', 'knife', 'light', 'major', 'night', 'other', 'paper', 'phone', 'reply', 'scale',
-  'table', 'uncle', 'value', 'waste', 'youth', 'world', 'truth', 'range', 'chief']
+const wordList = [
+  'abuse',
+  'above',
+  'after',
+  'basic',
+  'chest',
+  'dance',
+  'earth',
+  'filed',
+  'grant',
+  'house',
+  'image',
+  'judge',
+  'knife',
+  'light',
+  'major',
+  'night',
+  'other',
+  'paper',
+  'phone',
+  'reply',
+  'scale',
+  'table',
+  'uncle',
+  'value',
+  'waste',
+  'youth',
+  'world',
+  'truth',
+  'range',
+  'chief',
+]
 
 const len = wordList.length
 
@@ -60,14 +89,14 @@ document.getElementById('keyboard').addEventListener('click', (event) => {
 
   // checking if the key is any of the alphabet
   const found = key.match(/[a-z]/gi)
-  if (!found || found.length > 1) { // if none of the above or they pressed more than 1 key
-
+  if (!found || found.length > 1) {
+    // if none of the above or they pressed more than 1 key
   } else {
     insertLetter(key)
   }
 })
 
-function insertLetter (input) {
+function insertLetter(input) {
   if (nextLetter === 5) {
     return
   }
@@ -76,30 +105,31 @@ function insertLetter (input) {
   // gets the row of the current guess
   const row = document.getElementsByClassName('row')[6 - tries]
   // getting the column for the current guess
-  const box = row.children[nextLetter]
+  const col = row.children[nextLetter]
 
   // adding the letter to the column piece
-  box.textContent = input
-  box.classList.add('column-piece')// adding current letter to guess
-  guess.push(input)// adds 1 to number of letters in row
+  col.textContent = input
+  col.classList.add('column-piece') // adding current letter to guess
+  guess.push(input) // adds 1 to number of letters in row
   nextLetter += 1
 }
 
-function deleteLetter () {
-  if (nextLetter === 0) { // can't delete if there are no letters yet
+function deleteLetter() {
+  if (nextLetter === 0) {
+    // can't delete if there are no letters yet
     return
   }
   const row = document.getElementsByClassName('row')[6 - tries]
   // gets the column for the previous letter guess
-  const box = row.children[nextLetter - 1]
-  box.textContent = ''
-  box.classList.remove('column-piece')// this removes the piece entirely
-  box.classList.add('column-piece')// need to replace it with a new blank piece
-  guess.pop()// remove the letter from the guessed word
+  const col = row.children[nextLetter - 1]
+  col.textContent = ''
+  col.classList.remove('column-piece') // this removes the piece entirely
+  col.classList.add('column-piece') // need to replace it with a new blank piece
+  guess.pop() // remove the letter from the guessed word
   nextLetter -= 1
 }
 
-function checkInput () {
+function checkInput() {
   const row = document.getElementsByClassName('row')[6 - tries]
   let inputString = ''
   const correctInput = Array.from(chosenWord)
@@ -109,12 +139,17 @@ function checkInput () {
   }
 
   if (inputString.length != 5) {
-    alert('Invalid: word length')
+    alert('Invalid: The word must be 5 letters long.')
     return
   }
 
-  if (!wordList.includes(inputString)) {
-    alert('Invalid: not on list')
+  if (
+    (!wordList.includes(inputString) &&
+      inputString !== chosenWord &&
+      tries > 1) ||
+    (wordList.includes(inputString) && inputString !== chosenWord && tries > 1)
+  ) {
+    alert('Incorrect word')
     tries -= 1
     guess = []
     nextLetter = 0
@@ -134,11 +169,4 @@ function checkInput () {
       alert(`Correct word: "${chosenWord}"`)
     }
   }
-
-  if (!wordList.includes(inputString))
-  {
-      alert("Invalid: not on list")
-      
-  }
-
 }
