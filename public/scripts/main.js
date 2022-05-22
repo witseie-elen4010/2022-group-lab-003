@@ -99,6 +99,23 @@ function deleteLetter () {
   nextLetter -= 1
 }
 
+function shadeKeyBoard (letter, _colour) {
+  for (const elem of document.getElementsByClassName('keyboard-button')) {
+    if (elem.textContent === letter) {
+      const oldColour = elem.style.backgroundColour
+      if (oldColour === 'green') {
+        return
+      }
+
+      if (oldColour === 'yellow' && _colour !== 'green') {
+        return
+      }
+      elem.style.backgroundColour = _colour
+      break
+    }
+  }
+}
+
 function checkInput () {
   const row = document.getElementsByClassName('row')[6 - tries]
   let inputString = ''
@@ -121,6 +138,31 @@ function checkInput () {
     return
   }
 
+  for (let i = 0; i < 5; i++) {
+    let letterColour = ''
+    const box = row.children[i]
+    const letter = guess[i]
+
+    const letterPosition = correctInput.indexOf(guess[i])
+    if (letterPosition === -1) {
+      letterColour = 'grey'
+    } else {
+      if (guess[i] === correctInput[i]) {
+        letterColour = 'green'
+      } else {
+        letterColour = 'yellow'
+      }
+
+      correctInput[letterPosition] = '#'
+    }
+
+    const delay = 250 * i
+    setTimeout(() => {
+      box.style.backgroundColor = letterColour
+      shadeKeyBoard(letter, letterColour)
+    }, delay)
+  }
+
   if (inputString === chosenWord) {
     alert('Correct! You win!')
     tries = 0
@@ -135,10 +177,7 @@ function checkInput () {
     }
   }
 
-  if (!wordList.includes(inputString))
-  {
-      alert("Invalid: not on list")
-      
+  if (!wordList.includes(inputString)) {
+    alert('Invalid: not on list')
   }
-
 }
