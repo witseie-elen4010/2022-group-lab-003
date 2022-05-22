@@ -57,3 +57,31 @@ h1 {
   border-color: white;
 }
 
+#linkButton{
+  background-color: palevioletred;
+  color: black;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#linkAbout{
+  color: white;
+}
+
+#aboutPage{
+  background: black;
+  color: white;
+}
+
+.container {
+  position: relative;
+}
+
+.bottomleft {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  font-size: 18px;
+}
