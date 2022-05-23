@@ -26,7 +26,6 @@ createWordleBoard()
 const len = wordList.length
 const chosenWord = wordList[Math.floor(Math.random() * len)]
 
-
 // keyboard CLICK input
 let tries = 6 // number of words that player is allowed to guess
 let guess = [] // contains the word that the player guesses
@@ -113,72 +112,89 @@ function shadeKeyBoard (letter, _colour) {
   }
 }
 
-function checkInput () {
-  const row = document.getElementsByClassName('row-part')[6 - tries]
-  let inputString = ''
-  const correctInput = Array.from(chosenWord)
+function changeColour (row, correctInput) {
+  for (let i = 0; i < 5; i++) {
+    let letterColour = ''
+    const box = row.children[i]
+    const letter = guess[i]
 
-  for (const val of guess) {
-    inputString += val
-  }
-
-  if (inputString.length != 5) {
-    alert('Invalid: The word must be 5 letters long.')
-    return
-  }
-
-  if (
-    (!wordList.includes(inputString) &&
-         inputString !== chosenWord &&
-         tries > 1) ||
-      (wordList.includes(inputString) &&
-         inputString !== chosenWord &&
-         tries > 1)
-  ) {
-    alert('Invalid: the word is not on the list or is the incorrect word')
-
-    for (let i = 0; i < 5; i++) {
-      let letterColour = ''
-      const box = row.children[i]
-      const letter = guess[i]
-
-      const letterPosition = correctInput.indexOf(guess[i])
-      if (letterPosition === -1) {
-        letterColour = 'grey'
+    const letterPosition = correctInput.indexOf(guess[i])
+    if (letterPosition === -1) {
+      letterColour = 'grey'
+    } else {
+      if (guess[i] === correctInput[i]) {
+        letterColour = 'green'
       } else {
-        if (guess[i] === correctInput[i]) {
-          letterColour = 'green'
-        } else {
-          letterColour = 'yellow'
-        }
-
-        correctInput[letterPosition] = '#'
+        letterColour = 'yellow'
       }
 
-      const delay = 250 * i
-      setTimeout(() => {
-        box.style.backgroundColor = letterColour
-        shadeKeyBoard(letter, letterColour)
-      }, delay)
+      correctInput[letterPosition] = '#'
     }
-    tries -= 1
-    guess = []
-    nextLetter = 0
 
-    return
+    const delay = 250 * i
+    setTimeout(() => {
+      box.style.backgroundColor = letterColour
+      shadeKeyBoard(letter, letterColour)
+    }, delay)
   }
+}
 
-  if (inputString === chosenWord) {
-    alert('Correct! You win!')
-    tries = 0
-  } else {
-    tries -= 1
-    guess = []
-    nextLetter = 0
+function checkInput() {
+   const row = document.getElementsByClassName('row-part')[6 - tries]
+   let inputString = ''
+   const correctInput = Array.from(chosenWord)
 
-    if (tries === 0) {
-      alert('You lose. Guesses ran out.')
-      alert(`Correct word: "${chosenWord}"`)
-    }
-  }
+   for (const val of guess) {
+      inputString += val
+   }
+
+   if (inputString.length != 5) {
+      alert('Invalid: The word must be 5 letters long.')
+      return
+   }
+
+   if (
+      !wordList.includes(inputString) &&
+      inputString !== chosenWord &&
+      tries > 1
+   ) {
+      alert('Invalid: the word is not on the list')
+      changeColour(row, correctInput)
+      tries -= 1
+      guess = []
+      nextLetter = 0
+
+      return
+   }
+
+   if (
+      wordList.includes(inputString) &&
+      inputString !== chosenWord &&
+      tries > 1
+   ) {
+      changeColour(row, correctInput)
+      tries -= 1
+      guess = []
+      nextLetter = 0
+
+      return
+   }
+
+   if (inputString === chosenWord) {
+      alert('Correct! You win!')
+      changeColour(row, correctInput)
+      tries = 0
+      
+   } else {
+      
+      tries -= 1
+      guess = []
+      nextLetter = 0
+
+      if (tries === 0) {
+         alert('You lose. Guesses ran out.')
+         alert(`Correct word: "${chosenWord}"`)
+      }
+      return
+   }
 }
