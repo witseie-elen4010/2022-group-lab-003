@@ -1,5 +1,5 @@
 /* put style sheet things in here */
-h1 {
+.heading2 {
    color: rgb(226, 43, 171);
 }
 
@@ -10,8 +10,28 @@ h1 {
    flex-direction: column;
 }
 
-.row {
-   display: flex;
+
+/* styling for the instructions link */
+a:visited {
+  color: rgb(11, 4, 9);
+  background-color: transparent;
+  text-decoration: none;
+}
+a:hover {
+  color: rgb(255, 238, 0);
+  background-color: transparent;
+  text-decoration: underline;
+}
+a:active {
+  color: rgb(30, 232, 247);
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+
+.row-part {   
+  display: flex;
+
 }
 
 .column-piece {
@@ -57,3 +77,40 @@ h1 {
   border-color: white;
 }
 
+#linkButton{
+  background-color: palevioletred;
+  color: black;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#linkButton2{
+  background-color: palevioletred;
+  color: black;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#linkAbout{
+  color: white;
+}
+
+#aboutPage{
+  background: black;
+  color: white;
+}
+
+.container {
+  position: relative;
+}
+
+.bottomleft {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  font-size: 18px;
+}
