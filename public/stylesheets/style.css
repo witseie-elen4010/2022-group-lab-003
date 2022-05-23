@@ -1,5 +1,5 @@
 /* put style sheet things in here */
-h1 {
+.heading2 {
    color: rgb(226, 43, 171);
 }
 
@@ -10,8 +10,8 @@ h1 {
    flex-direction: column;
 }
 
-.row {
-   display: flex;
+.row-part {   
+  display: flex;
 }
 
 .column-piece {
