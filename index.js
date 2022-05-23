@@ -3,13 +3,13 @@
 
 const path = require('path')
 const express = require('express')
-const http = require('http')
 const app = express()
+const mainRouter = require('./routes/mainRoutes')
+app.use(mainRouter)
+const http = require('http')
 const socketio = require('socket.io')
 const server = http.createServer(app)
 const io = socketio(server)
-const mainRouter = require('./routes/mainRoutes')
-app.use(mainRouter)
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
