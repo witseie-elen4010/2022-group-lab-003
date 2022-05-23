@@ -11,9 +11,9 @@
 }
 
 
-/* styling fo rthe instructions link */
+/* styling for the instructions link */
 a:visited {
-  color: rgb(228, 42, 172);
+  color: rgb(11, 4, 9);
   background-color: transparent;
   text-decoration: none;
 }
@@ -78,6 +78,15 @@ a:active {
 }
 
 #linkButton{
+  background-color: palevioletred;
+  color: black;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#linkButton2{
   background-color: palevioletred;
   color: black;
   padding: 14px 25px;
