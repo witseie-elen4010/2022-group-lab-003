@@ -21,15 +21,44 @@ function createWordleBoard () {
   }
 }
 
-createWordleBoard()
+createWordleBoard();
 
-const wordList = ['abuse', 'above', 'after', 'basic', 'chest', 'dance', 'earth', 'filed', 'grant',
-  'house', 'image', 'judge', 'knife', 'light', 'major', 'night', 'other', 'paper', 'phone', 'reply', 'scale',
-  'table', 'uncle', 'value', 'waste', 'youth', 'world', 'truth', 'range', 'chief']
+const wordList = [
+   "abuse",
+   "above",
+   "after",
+   "basic",
+   "chest",
+   "dance",
+   "earth",
+   "filed",
+   "grant",
+   "house",
+   "image",
+   "judge",
+   "knife",
+   "light",
+   "major",
+   "night",
+   "other",
+   "paper",
+   "phone",
+   "reply",
+   "scale",
+   "table",
+   "uncle",
+   "value",
+   "waste",
+   "youth",
+   "world",
+   "truth",
+   "range",
+   "chief",
+];
 
-const len = wordList.length
+const len = wordList.length;
 
-const chosenWord = wordList[Math.floor(Math.random() * len)]
+const chosenWord = wordList[Math.floor(Math.random() * len)];
 
 // keyboard CLICK input
 let tries = 6 // number of words that player is allowed to guess
@@ -125,18 +154,39 @@ function checkInput () {
     inputString += val
   }
 
-  if (inputString.length != 5) {
-    alert('Invalid: word length')
-    return
-  }
+   if (inputString.length != 5) {
+      alert("Invalid: The word must be 5 letters long.");
+      return;
+   }
+  
+   if (
+      (!wordList.includes(inputString) &&
+         inputString !== chosenWord &&
+         tries > 1) ||
+      (wordList.includes(inputString) &&
+         inputString !== chosenWord &&
+         tries > 1)
+   ) {
+      alert("Invalid: the word is not on the list or is the incorrect word");
+      tries -= 1;
+      guess = [];
+      nextLetter = 0;
+      return;
+   }
 
-  if (!wordList.includes(inputString)) {
-    alert('Invalid: not on list')
-    tries -= 1
-    guess = []
-    nextLetter = 0
-    return
-  }
+   if (inputString === chosenWord) {
+      alert("Correct! You win!");
+      tries = 0;
+   } else {
+      tries -= 1;
+      guess = [];
+      nextLetter = 0;
+
+      if (tries === 0) {
+         alert("You lose. Guesses ran out.");
+         alert(`Correct word: "${chosenWord}"`);
+      }
+   }
 
   for (let i = 0; i < 5; i++) {
     let letterColour = ''
@@ -161,23 +211,5 @@ function checkInput () {
       box.style.backgroundColor = letterColour
       shadeKeyBoard(letter, letterColour)
     }, delay)
-  }
-
-  if (inputString === chosenWord) {
-    alert('Correct! You win!')
-    tries = 0
-  } else {
-    tries -= 1
-    guess = []
-    nextLetter = 0
-
-    if (tries === 0) {
-      alert('You lose. Guesses ran out.')
-      alert(`Correct word: "${chosenWord}"`)
-    }
-  }
-
-  if (!wordList.includes(inputString)) {
-    alert('Invalid: not on list')
   }
 }
