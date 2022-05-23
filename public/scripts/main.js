@@ -1,18 +1,18 @@
 'use strict'
-
+// Importing list of 5 letter words
+import { wordList } from './Wordlist.js'
 function createWordleBoard () {
-  let board = document.getElementById('wordle-board')
-
+  const board = document.getElementById('wordle-board')
   // the board creation is the same as how a 2d array is created (nested-for loop).
   // first, the row is created and then each column in that row is made before moving to the next row.
   // the maximum number of tries that a player gets is 6 therefore the number of rows is 6.
   for (let i = 0; i < 6; i++) {
-    let row = document.createElement('div')
+    const row = document.createElement('div')
     row.className = 'row-part'
 
     // the length of each word can only be 5 hence why only 5 columns are created before the next row.
     for (let j = 0; j < 5; j++) {
-      let col = document.createElement('div')
+      const col = document.createElement('div')
       col.className = 'column-piece'
       row.appendChild(col)
     }
@@ -22,14 +22,10 @@ function createWordleBoard () {
 }
 
 createWordleBoard()
-
-const wordList = ['abuse', 'above', 'after', 'basic', 'chest', 'dance', 'earth', 'filed', 'grant',
-  'house', 'image', 'judge', 'knife', 'light', 'major', 'night', 'other', 'paper', 'phone', 'reply', 'scale',
-  'table', 'uncle', 'value', 'waste', 'youth', 'world', 'truth', 'range', 'chief']
-
+// Choosing a random word from the list
 const len = wordList.length
-
 const chosenWord = wordList[Math.floor(Math.random() * len)]
+
 
 // keyboard CLICK input
 let tries = 6 // number of words that player is allowed to guess
@@ -60,8 +56,8 @@ document.getElementById('keyboard').addEventListener('click', (event) => {
 
   // checking if the key is any of the alphabet
   const found = key.match(/[a-z]/gi)
-  if (!found || found.length > 1) { // if none of the above or they pressed more than 1 key
-
+  if (!found || found.length > 1) {
+    // if none of the above or they pressed more than 1 key
   } else {
     insertLetter(key)
   }
@@ -80,22 +76,23 @@ function insertLetter (input) {
 
   // adding the letter to the column piece
   box.textContent = input
-  box.classList.add('column-piece')// adding current letter to guess
-  guess.push(input)// adds 1 to number of letters in row
+  box.classList.add('column-piece') // adding current letter to guess
+  guess.push(input) // adds 1 to number of letters in row
   nextLetter += 1
 }
 
 function deleteLetter () {
-  if (nextLetter === 0) { // can't delete if there are no letters yet
+  if (nextLetter === 0) {
+    // can't delete if there are no letters yet
     return
   }
   const row = document.getElementsByClassName('row-part')[6 - tries]
   // gets the column for the previous letter guess
   const box = row.children[nextLetter - 1]
   box.textContent = ''
-  box.classList.remove('column-piece')// this removes the piece entirely
-  box.classList.add('column-piece')// need to replace it with a new blank piece
-  guess.pop()// remove the letter from the guessed word
+  box.classList.remove('column-piece') // this removes the piece entirely
+  box.classList.add('column-piece') // need to replace it with a new blank piece
+  guess.pop() // remove the letter from the guessed word
   nextLetter -= 1
 }
 
@@ -126,41 +123,49 @@ function checkInput () {
   }
 
   if (inputString.length != 5) {
-    alert('Invalid: word length')
+    alert('Invalid: The word must be 5 letters long.')
     return
   }
 
-  if (!wordList.includes(inputString)) {
-    alert('Invalid: not on list')
+  if (
+    (!wordList.includes(inputString) &&
+         inputString !== chosenWord &&
+         tries > 1) ||
+      (wordList.includes(inputString) &&
+         inputString !== chosenWord &&
+         tries > 1)
+  ) {
+    alert('Invalid: the word is not on the list or is the incorrect word')
+
+    for (let i = 0; i < 5; i++) {
+      let letterColour = ''
+      const box = row.children[i]
+      const letter = guess[i]
+
+      const letterPosition = correctInput.indexOf(guess[i])
+      if (letterPosition === -1) {
+        letterColour = 'grey'
+      } else {
+        if (guess[i] === correctInput[i]) {
+          letterColour = 'green'
+        } else {
+          letterColour = 'yellow'
+        }
+
+        correctInput[letterPosition] = '#'
+      }
+
+      const delay = 250 * i
+      setTimeout(() => {
+        box.style.backgroundColor = letterColour
+        shadeKeyBoard(letter, letterColour)
+      }, delay)
+    }
     tries -= 1
     guess = []
     nextLetter = 0
+
     return
-  }
-
-  for (let i = 0; i < 5; i++) {
-    let letterColour = ''
-    const box = row.children[i]
-    const letter = guess[i]
-
-    const letterPosition = correctInput.indexOf(guess[i])
-    if (letterPosition === -1) {
-      letterColour = 'grey'
-    } else {
-      if (guess[i] === correctInput[i]) {
-        letterColour = 'green'
-      } else {
-        letterColour = 'yellow'
-      }
-
-      correctInput[letterPosition] = '#'
-    }
-
-    const delay = 250 * i
-    setTimeout(() => {
-      box.style.backgroundColor = letterColour
-      shadeKeyBoard(letter, letterColour)
-    }, delay)
   }
 
   if (inputString === chosenWord) {
@@ -175,9 +180,5 @@ function checkInput () {
       alert('You lose. Guesses ran out.')
       alert(`Correct word: "${chosenWord}"`)
     }
-  }
-
-  if (!wordList.includes(inputString)) {
-    alert('Invalid: not on list')
   }
 }
