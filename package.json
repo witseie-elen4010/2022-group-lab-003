@@ -11,11 +11,13 @@
     "socket.io": "^4.5.1"
   },
   "devDependencies": {
+    "jest": "^28.1.0",
     "nodemon": "^2.0.16"
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "test":"jest"
   },
   "repository": {
     "type": "git",
