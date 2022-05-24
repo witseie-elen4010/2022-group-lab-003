@@ -6,6 +6,10 @@ const express = require('express')
 const app = express()
 const mainRouter = require('./routes/mainRoutes')
 app.use(mainRouter)
+const http = require('http')
+const socketio = require('socket.io')
+const server = http.createServer(app)
+const io = socketio(server)
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
@@ -20,7 +24,3 @@ module.exports = app
 const port = process.env.PORT || 3000
 app.listen(port)
 console.log('Express server running on port', port)
-
-
-
-
