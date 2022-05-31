@@ -3,7 +3,7 @@
 const path = require('path')
 const express = require('express')
 const mainRouter = express.Router()
-const db = require('./db.js')
+const db = require('./database/db.js')
 
 mainRouter.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '..', 'views', 'game.html'))
