@@ -10,6 +10,46 @@
    flex-direction: column;
 }
 
+/* for the game board */
+
+.row-part1 {
+   display: flex;
+}
+
+.column-piece1{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-transform: uppercase;
+   border: 2px solid rgb(156, 155, 155);
+   margin: 3px;
+   height: 3rem;
+   width: 3rem;
+   font-size: 1.5rem;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: 600;
+   color: whitesmoke;
+}
+
+.row-part2 {
+   display: flex;
+}
+
+.column-piece2{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-transform: uppercase;
+   border: 2px solid rgb(156, 155, 155);
+   margin: 3px;
+   height: 3rem;
+   width: 3rem;
+   font-size: 1.5rem;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: 600;
+   color: whitesmoke;
+}
+
 /* styling for the instructions link */
 a:visited {
    color: rgb(11, 4, 9);
@@ -50,6 +90,7 @@ a:active {
    margin: 1rem 0;
    display: flex;
    flex-direction: column;
+   position: relative;
    align-items: center;
 }
 
@@ -110,3 +151,17 @@ a:active {
    left: 16px;
    font-size: 18px;
 }
+
+
+.float-container {
+   border: 3px solid #fff;
+   padding: 20px;
+}
+
+.float-child {
+   width: 50%;
+   float: left;
+   padding: 20px;
+   border: 2px solid rgba(251, 251, 251, 0.646);
+   
+}  

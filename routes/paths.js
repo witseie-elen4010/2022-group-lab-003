@@ -25,3 +25,9 @@ function options(req, res) {
 }
 
 module.exports = { options }
+
+function multiplayer(req, res) {
+   res.sendFile(path.join(__dirname, '..', 'views', 'multiplayer.html'))
+}
+
+module.exports = { multiplayer }
