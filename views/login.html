@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>Multi-Wordle Login Page</title>
+
+      <!-- Bootstrap -->
+      <link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+         crossorigin="anonymous"
+      />
+
+      <link
+         rel="stylesheet"
+         type="text/css"
+         href="/public/stylesheets/style.css"
+      />
+   </head>
+   
+   <body class="text-bg-dark p-3 text-center text-white">
+      <!-- JavaScript Bundle with Popper (Bootstrap) -->
+      <script
+         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+         crossorigin="anonymous"
+      ></script>
+
+      <h1>
+         <font color="#00FF00">M</font>
+         <font color="#FFFF00">U</font>
+         <font color="#707070">L</font>
+         <font color="#00FF00">T</font>
+         <font color="#FFFF00">I</font>
+         <font color="#FFFFFF">- Wordle</font>
+      </h1>
+      <hr>
+
+   <div class="container">
+      <form id="login" class="form">
+       <div class="form-field">
+         <label for="username">Username : </label>
+         <input
+            type="text"
+            placeholder="Enter Username"
+            name="username"
+            id = "username"
+            autocomplete="off"
+            required
+         >
+         <small></small>
+       </div>
+
+       <div class="form-field">
+         <label for="password">Password : </label>
+         <input
+            type="password"
+            placeholder="Enter Password"
+            name="password"
+            id = "password"
+            autocomplete="off"
+            required
+         >
+         <small></small>
+       </div>
+      
+      <div class = "form field">
+       <button id="linkButton2"> 
+         <input type="submit"  value="Log in">
+       </button>
+      </div>
+      
+   </form>
+</div>
+<script src="/public/scripts/login.js"></script>
+</body>
+</html>
