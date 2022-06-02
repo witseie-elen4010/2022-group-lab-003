@@ -42,8 +42,29 @@ function createWordleBoard2() {
     }
   }
 
+  function createWordleBoard3() {
+    const board = document.getElementById('wordle-board3')
+    // the board creation is the same as how a 2d array is created (nested-for loop).
+    // first, the row is created and then each column in that row is made before moving to the next row.
+    // the maximum number of tries that a player gets is 6 therefore the number of rows is 6.
+    for (let i = 0; i < 6; i++) {
+      const row = document.createElement('div')
+      row.className = 'row-part3'
+  
+      // the length of each word can only be 5 hence why only 5 columns are created before the next row.
+      for (let j = 0; j < 5; j++) {
+        const col = document.createElement('div')
+        col.className = 'column-piece3'
+        row.appendChild(col)
+      }
+  
+      board.appendChild(row)
+    }
+  }
+
 createWordleBoard1()
 createWordleBoard2()
+createWordleBoard3()
 // Choosing a random word from the list
 const len = wordList.length
 const chosenWord = wordList[Math.floor(Math.random() * len)]

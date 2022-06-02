@@ -35,6 +35,10 @@
    display: flex;
 }
 
+.row-part3 {
+   display: flex;
+}
+
 .column-piece2{
    display: flex;
    justify-content: center;
@@ -42,8 +46,23 @@
    text-transform: uppercase;
    border: 2px solid rgb(156, 155, 155);
    margin: 3px;
-   height: 3rem;
-   width: 3rem;
+   height: 2rem;
+   width: 2rem;
+   font-size: 1.5rem;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: 600;
+   color: whitesmoke;
+}
+
+.column-piece3{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-transform: uppercase;
+   border: 2px solid rgb(156, 155, 155);
+   margin: 3px;
+   height: 2rem;
+   width: 2rem;
    font-size: 1.5rem;
    font-family: 'Courier New', Courier, monospace;
    font-weight: 600;
@@ -154,19 +173,41 @@ a:active {
 
 
 .float-child {
-   width: 25%;
-   float: left;
-   padding: 20px;
+   position: relative;
+   width: 330px;
+   left: 190px;
+   /* top: 200px; */
+   padding: 2%;
    border: 2px solid rgba(251, 251, 251, 0.646);
    
 }  
 
 .box {
-   width: 50%;
+   width: 700px;
    float: left;
-   position: absolute;
-   bottom: -300px;
+   position: relative;
+   /* bottom: -150px; */
    padding: 20px;
    border: 2px solid rgba(251, 251, 251, 0.646);
    
 }  
+
+.right {
+   position: absolute;
+   color: coral;
+   left: 820px;
+   top: 250px;
+   width: 230px;
+   border: 2px solid coral;
+   padding: 20px;
+ }
+
+ .right1 {
+   color: mediumvioletred;
+   position: absolute;
+   left: 1070px;
+   top: 250px;
+   width: 230px;
+   border: 2px solid mediumvioletred;
+   padding: 20px;
+ }
