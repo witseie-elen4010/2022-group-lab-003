@@ -73,19 +73,21 @@ a:active {
    border-color: white;
 }
 
-#linkButton {
+/*for login button*/
+button, input[type=submit] {
    background-color: palevioletred;
    color: black;
-   padding: 14px 25px;
+   border:rgb(11, 4, 9);
+   padding: 10px 25px;
    text-align: center;
    text-decoration: none;
    display: inline-block;
 }
 
-#linkButton2 {
-   background-color: palevioletred;
+#linkButton {
+   background-color: palevioletred; 
    color: black;
-   padding: 10px 25px;
+   padding: 14px 25px;
    text-align: center;
    text-decoration: none;
    display: inline-block;
