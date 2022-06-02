@@ -17,7 +17,8 @@ app.use(
    express.static(__dirname + '/public/stylesheets')
 )
 app.use('/public/scripts', express.static(__dirname + '/public/scripts'))
-
+app.use('/database', express.static(__dirname + '/database'))
+app.use('/routes', express.static(__dirname + '/routes'))
 module.exports = app
 
 const port = process.env.PORT || 3000
