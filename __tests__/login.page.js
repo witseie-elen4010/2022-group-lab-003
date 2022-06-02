@@ -140,4 +140,22 @@ describe('Login page click tests', () => {
 
       driver.close()
    })
+
+   test('Double clicking the Log in button allows user to go to the Options page with correct password (lowercase, uppercase, >1 number, length>8)', async function () {
+      let driver = await new Builder().forBrowser('chrome').build()
+      await driver.get('https://multi-wordle.azurewebsites.net/')
+
+      driver.findElement(By.id('username')).sendKeys('testing')
+      driver.findElement(By.id('password')).sendKeys('czkABD1JHRTfas5312')
+
+      await driver.findElement(By.xpath('(//*[@id="linkButton2"])[1]')).click()
+      await driver.findElement(By.xpath('(//*[@id="linkButton2"])[1]')).click()
+
+      let expectedTitle = 'Options Page'
+      let actualTitle = await driver.getTitle()
+
+      assert.equal(actualTitle, expectedTitle)
+
+      driver.close()
+   })
 })
