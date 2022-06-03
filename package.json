@@ -13,8 +13,8 @@
   },
   "scripts": {
     "test": "",
-    "start":"node index",
-    "dev":"nodemon index"
+    "start": "node index",
+    "dev": "nodemon index"
   },
   "repository": {
     "type": "git",

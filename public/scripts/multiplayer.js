@@ -2,7 +2,7 @@
 // Importing list of 5 letter words
 import { wordList } from './Wordlist.js'
 
-function createWordleBoard1() {
+function createWordleBoard1 () {
   const board = document.getElementById('wordle-board1')
   // the board creation is the same as how a 2d array is created (nested-for loop).
   // first, the row is created and then each column in that row is made before moving to the next row.
@@ -22,45 +22,45 @@ function createWordleBoard1() {
   }
 }
 
-function createWordleBoard2() {
-    const board = document.getElementById('wordle-board2')
-    // the board creation is the same as how a 2d array is created (nested-for loop).
-    // first, the row is created and then each column in that row is made before moving to the next row.
-    // the maximum number of tries that a player gets is 6 therefore the number of rows is 6.
-    for (let i = 0; i < 6; i++) {
-      const row = document.createElement('div')
-      row.className = 'row-part2'
-  
-      // the length of each word can only be 5 hence why only 5 columns are created before the next row.
-      for (let j = 0; j < 5; j++) {
-        const col = document.createElement('div')
-        col.className = 'column-piece2'
-        row.appendChild(col)
-      }
-  
-      board.appendChild(row)
-    }
-  }
+function createWordleBoard2 () {
+  const board = document.getElementById('wordle-board2')
+  // the board creation is the same as how a 2d array is created (nested-for loop).
+  // first, the row is created and then each column in that row is made before moving to the next row.
+  // the maximum number of tries that a player gets is 6 therefore the number of rows is 6.
+  for (let i = 0; i < 6; i++) {
+    const row = document.createElement('div')
+    row.className = 'row-part2'
 
-  function createWordleBoard3() {
-    const board = document.getElementById('wordle-board3')
-    // the board creation is the same as how a 2d array is created (nested-for loop).
-    // first, the row is created and then each column in that row is made before moving to the next row.
-    // the maximum number of tries that a player gets is 6 therefore the number of rows is 6.
-    for (let i = 0; i < 6; i++) {
-      const row = document.createElement('div')
-      row.className = 'row-part3'
-  
-      // the length of each word can only be 5 hence why only 5 columns are created before the next row.
-      for (let j = 0; j < 5; j++) {
-        const col = document.createElement('div')
-        col.className = 'column-piece3'
-        row.appendChild(col)
-      }
-  
-      board.appendChild(row)
+    // the length of each word can only be 5 hence why only 5 columns are created before the next row.
+    for (let j = 0; j < 5; j++) {
+      const col = document.createElement('div')
+      col.className = 'column-piece2'
+      row.appendChild(col)
     }
+
+    board.appendChild(row)
   }
+}
+
+function createWordleBoard3 () {
+  const board = document.getElementById('wordle-board3')
+  // the board creation is the same as how a 2d array is created (nested-for loop).
+  // first, the row is created and then each column in that row is made before moving to the next row.
+  // the maximum number of tries that a player gets is 6 therefore the number of rows is 6.
+  for (let i = 0; i < 6; i++) {
+    const row = document.createElement('div')
+    row.className = 'row-part3'
+
+    // the length of each word can only be 5 hence why only 5 columns are created before the next row.
+    for (let j = 0; j < 5; j++) {
+      const col = document.createElement('div')
+      col.className = 'column-piece3'
+      row.appendChild(col)
+    }
+
+    board.appendChild(row)
+  }
+}
 
 createWordleBoard1()
 createWordleBoard2()
@@ -74,49 +74,46 @@ let tries = 6 // number of words that player is allowed to guess
 let guess = [] // contains the word that the player guesses
 let nextLetter = 0 // keeps track of which letter we are on
 
-//logic used from battleships multiplayer game: https://github.com/kubowania/battleships/tree/multiplayer
+// logic used from battleships multiplayer game: https://github.com/kubowania/battleships/tree/multiplayer
 const infoDisplay = document.querySelector('#info')
 const multiplayerButton = document.querySelector('#linkButton2')
-let playerNum = 0; //assume player 0 until told otherwise
-let currentPlayer = "user"
+let playerNum = 0 // assume player 0 until told otherwise
+let currentPlayer = 'user'
 
-  
-const socket = io();
+const socket = io()
 
-//get player number
+// get player number
 socket.on('player-number', num => {
-  if (num ===-1){
-    infoDisplay.innerHTML = "Sorry the server is full. Please play in single player mode"
+  if (num === -1) {
+    infoDisplay.innerHTML = 'Sorry the server is full. Please play in single player mode'
   } else {
-    playerNum = parseInt(num) //data transmitted is a string
-    if(playerNum===1){
-      currentPlayer = "opponent1"
-    } else if(playerNum===2){
-      currentPlayer = "opponent2"
+    playerNum = parseInt(num) // data transmitted is a string
+    if (playerNum === 1) {
+      currentPlayer = 'opponent1'
+    } else if (playerNum === 2) {
+      currentPlayer = 'opponent2'
     }
     console.log(playerNum)
-    //other players present
+    // other players present
     socket.emit('check-players')
   }
 })
 
-//another player has connected or disconnected
-socket.on('player-connection',num => {
+// another player has connected or disconnected
+socket.on('player-connection', num => {
   console.log(`Player number ${num} has connected/disconnected`)
   playerConnectedOrDisconnected(num)
 })
 
-
-function playerConnectedOrDisconnected(num) {
-  let player = `.p${parseInt(num) + 1}` //looking for the class in html file
-  //console.log(player)
-  document.querySelector(`${player} .connected span`).classList.toggle('green')
-  if(parseInt(num) === playerNum) {
-    document.querySelector(playerNum).style.fontWeight = "bold"
-
+function playerConnectedOrDisconnected (num) {
+  const player = `.p${parseInt(num) + 1}` // looking for the class in html file
+  // console.log(player)
+  /* document.querySelector(`${player} .connected span`) // .classList.toggle('green')
+  if (parseInt(num) === playerNum) {
+    document.querySelector(playerNum).style.fontWeight = 'bold'
   }
+  */
 }
-
 
 document.getElementById('keyboard').addEventListener('click', (event) => {
   if (tries === 0) {
@@ -226,62 +223,59 @@ function changeColour (row, correctInput) {
   }
 }
 
-function checkInput() {
-   const row = document.getElementsByClassName('row-part1')[6 - tries]
-   let inputString = ''
-   const correctInput = Array.from(chosenWord)
+function checkInput () {
+  const row = document.getElementsByClassName('row-part1')[6 - tries]
+  let inputString = ''
+  const correctInput = Array.from(chosenWord)
 
-   for (const val of guess) {
-      inputString += val
-   }
+  for (const val of guess) {
+    inputString += val
+  }
 
-   if (inputString.length != 5) {
-      alert('Invalid: The word must be 5 letters long.')
-      return
-   }
+  if (inputString.length != 5) {
+    alert('Invalid: The word must be 5 letters long.')
+    return
+  }
 
-   if (
-      !wordList.includes(inputString) &&
-      inputString !== chosenWord &&
-      tries > 1
-   ) {
-      alert('Invalid: the word is not on the list')
-      changeColour(row, correctInput)
-      tries -= 1
-      guess = []
-      nextLetter = 0
+  if (
+    !wordList.includes(inputString) &&
+    inputString !== chosenWord &&
+    tries > 1
+  ) {
+    alert('Invalid: the word is not on the list')
+    changeColour(row, correctInput)
+    tries -= 1
+    guess = []
+    nextLetter = 0
 
-      return
-   }
+    return
+  }
 
-   if (
-      wordList.includes(inputString) &&
-      inputString !== chosenWord &&
-      tries > 1
-   ) {
-      changeColour(row, correctInput)
-      tries -= 1
-      guess = []
-      nextLetter = 0
+  if (
+    wordList.includes(inputString) &&
+    inputString !== chosenWord &&
+    tries > 1
+  ) {
+    changeColour(row, correctInput)
+    tries -= 1
+    guess = []
+    nextLetter = 0
 
-      return
-   }
+    return
+  }
 
-   if (inputString === chosenWord) {
-      alert('Correct! You win!')
-      changeColour(row, correctInput)
-      tries = 0
-      
-   } else {
-      
-      tries -= 1
-      guess = []
-      nextLetter = 0
+  if (inputString === chosenWord) {
+    alert('Correct! You win!')
+    changeColour(row, correctInput)
+    tries = 0
+  } else {
+    tries -= 1
+    guess = []
+    nextLetter = 0
 
-      if (tries === 0) {
-         alert('You lose. Guesses ran out.')
-         alert(`Correct word: "${chosenWord}"`)
-      }
-      return
-   }
+    if (tries === 0) {
+      alert('You lose. Guesses ran out.')
+      alert(`Correct word: "${chosenWord}"`)
+    }
+  }
 }

@@ -212,21 +212,4 @@ a:active {
    padding: 20px;
  }
 
- .connected, .ready {
-   font-weight: normal;
-   font: 'Courier New', Courier, monospace;
 
-
- }
-
- .connected span,
- .ready span {
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-    background: red;
- }
-
- span.green{
-    background: green;
- }
