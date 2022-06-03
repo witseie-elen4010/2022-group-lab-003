@@ -1,4 +1,4 @@
-export const wordList = [
+const words = [
   'which',
   'there',
   'their',
@@ -5757,3 +5757,6 @@ export const wordList = [
   'biffy',
   'pupal'
 ]
+
+// export default words
+export { words }

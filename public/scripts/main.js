@@ -1,6 +1,20 @@
 'use strict'
-// Importing list of 5 letter words
-import { wordList } from './Wordlist.js'
+// import { checkInputLength } from './checkInput.js'
+import { words } from './Wordlist.js'
+
+const wordList = words
+
+function checkInputLength (inputString) {
+  if (inputString.length != 5) {
+    // alert('Invalid: The word must be 5 letters long.')
+    const invalidLength = Boolean(inputString.length !== 5)
+    console.log(invalidLength)
+    return invalidLength
+  }
+}
+// export { checkInputLength }
+export { checkInputLength }
+
 function createWordleBoard () {
   const board = document.getElementById('wordle-board')
   // the board creation is the same as how a 2d array is created (nested-for loop).
@@ -35,7 +49,6 @@ document.getElementById('keyboard').addEventListener('click', (event) => {
   if (tries === 0) {
     return
   }
-
   const target = event.target
   // if the key that was clicked is not a keyboard button
   if (!target.classList.contains('keyboard-button')) {
@@ -139,62 +152,58 @@ function changeColour (row, correctInput) {
   }
 }
 
-function checkInput() {
-   const row = document.getElementsByClassName('row-part')[6 - tries]
-   let inputString = ''
-   const correctInput = Array.from(chosenWord)
+function checkInput () {
+  const row = document.getElementsByClassName('row-part')[6 - tries]
+  let inputString = ''
+  const correctInput = Array.from(chosenWord)
 
-   for (const val of guess) {
-      inputString += val
-   }
+  for (const val of guess) {
+    inputString += val
+  }
+  // checkInputLength(inputString)
+  if (checkInputLength(inputString)) {
+    alert('Invalid: Word is not 5 letters')
+  }
 
-   if (inputString.length != 5) {
-      alert('Invalid: The word must be 5 letters long.')
-      return
-   }
+  if (
+    !wordList.includes(inputString) &&
+     inputString !== chosenWord &&
+     tries > 1
+  ) {
+    alert('Invalid: the word is not on the list')
+    changeColour(row, correctInput)
+    tries -= 1
+    guess = []
+    nextLetter = 0
 
-   if (
-      !wordList.includes(inputString) &&
-      inputString !== chosenWord &&
-      tries > 1
-   ) {
-      alert('Invalid: the word is not on the list')
-      changeColour(row, correctInput)
-      tries -= 1
-      guess = []
-      nextLetter = 0
+    return
+  }
 
-      return
-   }
+  if (
+    wordList.includes(inputString) &&
+     inputString !== chosenWord &&
+     tries > 1
+  ) {
+    changeColour(row, correctInput)
+    tries -= 1
+    guess = []
+    nextLetter = 0
 
-   if (
-      wordList.includes(inputString) &&
-      inputString !== chosenWord &&
-      tries > 1
-   ) {
-      changeColour(row, correctInput)
-      tries -= 1
-      guess = []
-      nextLetter = 0
+    return
+  }
 
-      return
-   }
+  if (inputString === chosenWord) {
+    alert('Correct! You win!')
+    changeColour(row, correctInput)
+    tries = 0
+  } else {
+    tries -= 1
+    guess = []
+    nextLetter = 0
 
-   if (inputString === chosenWord) {
-      alert('Correct! You win!')
-      changeColour(row, correctInput)
-      tries = 0
-      
-   } else {
-      
-      tries -= 1
-      guess = []
-      nextLetter = 0
-
-      if (tries === 0) {
-         alert('You lose. Guesses ran out.')
-         alert(`Correct word: "${chosenWord}"`)
-      }
-      return
-   }
+    if (tries === 0) {
+      alert('You lose. Guesses ran out.')
+      alert(`Correct word: "${chosenWord}"`)
+    }
+  }
 }
