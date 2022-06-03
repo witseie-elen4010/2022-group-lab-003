@@ -74,6 +74,50 @@ let tries = 6 // number of words that player is allowed to guess
 let guess = [] // contains the word that the player guesses
 let nextLetter = 0 // keeps track of which letter we are on
 
+//logic used from battleships multiplayer game: https://github.com/kubowania/battleships/tree/multiplayer
+const infoDisplay = document.querySelector('#info')
+const multiplayerButton = document.querySelector('#linkButton2')
+let playerNum = 0; //assume player 0 until told otherwise
+let currentPlayer = "user"
+
+  
+const socket = io();
+
+//get player number
+socket.on('player-number', num => {
+  if (num ===-1){
+    infoDisplay.innerHTML = "Sorry the server is full. Please play in single player mode"
+  } else {
+    playerNum = parseInt(num) //data transmitted is a string
+    if(playerNum===1){
+      currentPlayer = "opponent1"
+    } else if(playerNum===2){
+      currentPlayer = "opponent2"
+    }
+    console.log(playerNum)
+    //other players present
+    socket.emit('check-players')
+  }
+})
+
+//another player has connected or disconnected
+socket.on('player-connection',num => {
+  console.log(`Player number ${num} has connected/disconnected`)
+  playerConnectedOrDisconnected(num)
+})
+
+
+function playerConnectedOrDisconnected(num) {
+  let player = `.p${parseInt(num) + 1}` //looking for the class in html file
+  //console.log(player)
+  document.querySelector(`${player} .connected span`).classList.toggle('green')
+  if(parseInt(num) === playerNum) {
+    document.querySelector(playerNum).style.fontWeight = "bold"
+
+  }
+}
+
+
 document.getElementById('keyboard').addEventListener('click', (event) => {
   if (tries === 0) {
     return

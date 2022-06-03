@@ -1,7 +1,7 @@
 {
   "name": "2022-group-lab-003",
   "version": "1.0.0",
-  "description": "The following is the README file for Group 3's Lab Project for ELEN4010 2022.",
+  "description": "The following is the Multi-Wordle game implementation for Group 3's Lab Project for ELEN4010 2022.",
   "main": "index.js",
   "author": "group-003",
   "license": "ISC",
@@ -12,7 +12,9 @@
     "socket.io": "^4.5.1"
   },
   "scripts": {
-    "test": ""
+    "test": "",
+    "start":"node index",
+    "dev":"nodemon index"
   },
   "repository": {
     "type": "git",
