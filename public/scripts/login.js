@@ -26,6 +26,12 @@ const isUsernameValid = () => {
     return isValid
 }
 
+function getValidUsername() {
+    if(isUsernameValid()) {
+       return username
+    }
+}
+
 function isPasswordValid() {
     let isValid = false
 
@@ -41,6 +47,12 @@ function isPasswordValid() {
     }
 
     return isValid
+}
+
+function getValidPassword() {
+    if(isPasswordValid()) {
+       return password
+    }
 }
 
 function isPasswordSecure(passWord) {
@@ -124,3 +136,5 @@ form.addEventListener('input', debounce(function (e) {
             break
     }
 }))
+
+//module.export={getValidPassword:getValidPassword, getValidUsername:getValidUsername}

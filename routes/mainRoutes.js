@@ -21,24 +21,30 @@ mainRouter.get('/instructions', paths.instructions)
 mainRouter.get('/multiplayer', paths.multi)
 
 mainRouter.get('/database', function (req, res) {
-// Make a query to the database
-db.pools
-// Run query
-.then((pool) => {
-return pool.request()
-// This is only a test query, change it to whatever you need
-.query('SELECT 1')
+ 
+   
+
+   // Make a query to the database
+   db.pools
+   // Run query
+   .then((pool) => {
+   return pool.request()
+   .query(`SELECT * FROM Login; `) // INSERT INTO Login(username,password) VALUES('usernamesss','passworddd');`)
+   })
+   // Send back the result
+   .then(result => {
+   res.send(result)
+   })
+   // If there's an error, return that with some description
+   .catch(err => {
+   res.send({
+   Error: err
+   })
+   })
 })
-// Send back the result
-.then(result => {
-res.send(result)
-})
-// If there's an error, return that with some description
-.catch(err => {
-res.send({
-Error: err
-})
-})
-})
+
+// mainRouter.post('/store-user-details', function(req,res) {
+//    return res.redirect('login.js')
+// })
 
 module.exports = mainRouter
