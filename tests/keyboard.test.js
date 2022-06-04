@@ -31,6 +31,19 @@ describe('Keyboard tests for the delete and enter buttons', () => {
       await page.locator('button:has-text("Del")').click()
       await expect(page).toMatchText('.row-part', 'za')
    })
+
+   test('The enter button takes user to the next row if word is valid', async () => {
+      await page.goto('https://multi-wordle.azurewebsites.net/game')
+
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("p")').click()
+      await page.locator('button:has-text("p")').click()
+      await page.locator('button:has-text("l") >> nth=0').click()
+      await page.locator('button:has-text("e") >> nth=0').click()
+      await page.locator('button:has-text("Enter") >> nth=0').click()
+      await page.locator('button:has-text("l") >> nth=0').click()
+      await expect(page).toMatchText('.row-part >> nth=1', 'l') //checks the 2nd row
+   })
 })
 
 describe('Keyboard tests for each letter', () => {
