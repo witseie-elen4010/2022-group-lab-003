@@ -74,7 +74,7 @@ let tries = 6 // number of words that player is allowed to guess
 let guess = [] // contains the word that the player guesses
 let nextLetter = 0 // keeps track of which letter we are on
 
-// logic used from battleships multiplayer game: https://github.com/kubowania/battleships/tree/multiplayer
+
 const infoDisplay = document.querySelector('#info')
 const multiplayerButton = document.querySelector('#linkButton2')
 let playerNum = 0 // assume player 0 until told otherwise
