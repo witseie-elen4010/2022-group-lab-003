@@ -1,8 +1,3 @@
-// 'use strict'
-
-// const { Builder, By, Key, util } = require('selenium-webdriver')
-// var assert = require('assert')
-
 'use strict'
 
 const { firefox } = require('playwright')
