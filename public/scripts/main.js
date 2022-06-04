@@ -123,9 +123,9 @@ function changeColour (row, correctInput) {
       letterColour = 'grey'
     } else {
       if (guess[i] === correctInput[i]) {
-        letterColour = 'green'
+        letterColour = 'blue'
       } else {
-        letterColour = 'yellow'
+        letterColour = 'pink'
       }
 
       correctInput[letterPosition] = '#'
@@ -195,6 +195,6 @@ function checkInput() {
          alert('You lose. Guesses ran out.')
          alert(`Correct word: "${chosenWord}"`)
       }
-      return
+      
    }
 }
