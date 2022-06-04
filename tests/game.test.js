@@ -30,7 +30,6 @@ describe('Game page tests for elements', () => {
       await page.goto('https://multi-wordle.azurewebsites.net/game')
       await expect(page).toHaveSelectorCount('#wordle-board', 1)
    })
-
    test('There are 6 rows in the game board on the game page', async () => {
       await page.goto('https://multi-wordle.azurewebsites.net/game')
       await expect(page).toHaveSelectorCount('.row-part', 6)
@@ -39,12 +38,5 @@ describe('Game page tests for elements', () => {
    test('There are 30 squares and since there are 6 rows, there must be 5 columns', async () => {
       await page.goto('https://multi-wordle.azurewebsites.net/game')
       await expect(page).toHaveSelectorCount('.column-piece', 30)
-   })
-
-   test('The letter is displayed on the game board after click on keyboard', async () => {
-      await page.goto('https://multi-wordle.azurewebsites.net/game')
-
-      await page.locator('button:has-text("z")').click()
-      await expect(page).toMatchText('.column-piece', 'z')
    })
 })
