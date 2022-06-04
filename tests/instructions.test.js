@@ -25,4 +25,11 @@ describe('Instruction page clicking tests', () => {
       await page.goto('https://multi-wordle.azurewebsites.net/instructions')
       expect(await page.title()).toBe('MULTI-WORDLE')
    })
+
+   test('Instruction page opened after clicking instructions button on Game page', async () => {
+      await page.goto('https://multi-wordle.azurewebsites.net/game')
+
+      await page.click('(//*[@id="linkButton"])[2]')
+      expect(await page.title()).toBe('MULTI-WORDLE')
+   })
 })
