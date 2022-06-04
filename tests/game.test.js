@@ -29,9 +29,8 @@ describe('Game page tests for elements', () => {
 
    test('One keyboard is displayed on Game page', async () => {
       await page.goto('https://multi-wordle.azurewebsites.net/game')
-      // const keyboard = page.locator('#keyboard')
+      
       await expect(page).toHaveSelectorCount('#keyboard', 1)
 
-      // await page.waitForFunction(() => !document.querySelector('#keyboard'))
    })
 })
