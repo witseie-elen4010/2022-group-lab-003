@@ -24,10 +24,10 @@ mainRouter.get('/multiplayer', paths.multi)
 
 mainRouter.get('/database', function (req, res) {
 
-   var form = document.getElementById('form')
+   //var form = document.getElementById('form')
    
-   const user = document.querySelector('#username')
-   const pass = document.getElementById('password')
+   const user = 'testUser'
+   const pass = 'test123Pass'
 
    // Make a query to the database
    db.pools
