@@ -6,6 +6,8 @@ const mainRouter = express.Router()
 const paths = require('./paths')
 const db = require('../database/db.js')
 
+//const validLogin = require('../public/scripts/login.js')
+
 mainRouter.get('/', function (req, res) {
    res.sendFile(path.join(__dirname, '..', 'views', 'login.html'))
 })
@@ -21,15 +23,16 @@ mainRouter.get('/instructions', paths.instructions)
 mainRouter.get('/multiplayer', paths.multi)
 
 mainRouter.get('/database', function (req, res) {
- 
-   
+
+   const user = req.body.username //document.querySelector('#username')
+   const pass = req.body.password //document.getElementById('password')
 
    // Make a query to the database
    db.pools
    // Run query
    .then((pool) => {
    return pool.request()
-   .query(`SELECT * FROM Login; `) // INSERT INTO Login(username,password) VALUES('usernamesss','passworddd');`)
+   .query(`INSERT INTO Login(username, password) VALUES('${user}','${pass}');`)
    })
    // Send back the result
    .then(result => {

@@ -40,7 +40,7 @@
       <hr>
 
    <div class="container">
-      <form id="login" class="form" action="/mainRoutes.js" method="post">
+      <form id="login" class="form" action="/routes/mainRoutes.js" onsubmit="return isUsernameValid() && isPasswordValid()" method="post">
        <div class="form-field">
          <label for="username">Username : </label>
          <input

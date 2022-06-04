@@ -26,11 +26,11 @@ const isUsernameValid = () => {
     return isValid
 }
 
-function getValidUsername() {
-    if(isUsernameValid()) {
-       return username
-    }
-}
+// function getValidUsername() {
+//     if(isUsernameValid()) {
+//        return username
+//     }
+// }
 
 function isPasswordValid() {
     let isValid = false
@@ -49,11 +49,11 @@ function isPasswordValid() {
     return isValid
 }
 
-function getValidPassword() {
-    if(isPasswordValid()) {
-       return password
-    }
-}
+// function getValidPassword() {
+//     if(isPasswordValid()) {
+//         return password
+//     }
+// }
 
 function isPasswordSecure(passWord) {
     const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})")
