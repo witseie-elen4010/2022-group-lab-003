@@ -18,7 +18,8 @@
          rel="stylesheet"
          type="text/css"
          href="/public/stylesheets/style.css"
-      />
+      /> 
+
    </head>
    
    <body class="text-bg-dark p-3 text-center text-white">
@@ -40,7 +41,7 @@
       <hr>
 
    <div class="container">
-      <form id="login" class="form" action="/routes/mainRoutes.js" method="post">
+      <form id="login" class="form" actions="../routes/mainRoutes" method="post">  
        <div class="form-field">
          <label for="username">Username : </label>
          <input
@@ -67,14 +68,15 @@
          <small></small>
        </div>
       
-      <div class = "form field">
+      <div class = "form field"> 
        <button id="linkButton2"> 
-         <input type="submit"  value="Log in">
+          <input type="submit"  value="Log in"> 
        </button>
-      </div>
-      
+      </div> 
    </form>
 </div>
-<script src="/public/scripts/login.js" type="module"></script>
+ 
+<script type="module" src="../public/scripts/login.js"></script>
+
 </body>
 </html>

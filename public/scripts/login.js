@@ -4,8 +4,6 @@ const username = document.querySelector('#username')
 const password = document.querySelector('#password')
 
 const form = document.querySelector('#login')
-console.log(username.value)
-console.log(password.value)
 
 function isUsernameValid() {
 
@@ -26,12 +24,6 @@ function isUsernameValid() {
     return isValid
 }
 
-// function getValidUsername() {
-//     if(isUsernameValid()) {
-//        return username
-//     }
-// }
-
 function isPasswordValid() {
     let isValid = false
 
@@ -48,12 +40,6 @@ function isPasswordValid() {
 
     return isValid
 }
-
-// function getValidPassword() {
-//     if(isPasswordValid()) {
-//         return password
-//     }
-// }
 
 function isPasswordSecure(passWord) {
     const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})")
@@ -90,7 +76,6 @@ function dispSuccess(input) {
     error.textContent = ''
 }
 
-
 form.addEventListener('submit', function (e) {
     // prevent the form from submitting
     e.preventDefault();
@@ -101,15 +86,13 @@ form.addEventListener('submit', function (e) {
         
     let isLoginValid = validPassword && validUsername
 
-    
     // if the form is valid then redirect to options page
     if (isLoginValid) {
         document.getElementById("linkButton2").onclick= function() {
             location.href="./options"
-        }   
-    }
+        } 
+    } 
 })
-
 
 function debounce(fn, delay = 500) {
     let timeoutId;
@@ -137,4 +120,3 @@ form.addEventListener('input', debounce(function (e) {
     }
 }))
 
-//module.export={getValidPassword:getValidPassword, getValidUsername:getValidUsername}

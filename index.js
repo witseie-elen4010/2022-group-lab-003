@@ -5,6 +5,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const mainRouter = require('./routes/mainRoutes')
+
 app.use(mainRouter)
 
 const bodyParser = require('body-parser')
