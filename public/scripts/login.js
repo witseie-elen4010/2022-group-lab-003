@@ -6,12 +6,11 @@ const password = document.querySelector('#password')
 const form = document.querySelector('#login')
 
 
-const isUsernameValid = () => {
+function isUsernameValid() {
 
     let isValid = false
 
-    const min = 3,
-          max = 30
+    const min = 3, max = 30
 
     const userName = username.value.trim()
 
@@ -132,7 +131,7 @@ form.addEventListener('input', debounce(function (e) {
             isUsernameValid()
             break
         case 'password':
-            checkPassword()
+            isPasswordValid()
             break
     }
 }))
