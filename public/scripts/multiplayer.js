@@ -17,7 +17,6 @@ function createWordleBoard1 () {
       col.className = 'column-piece1'
       row.appendChild(col)
     }
-
     board.appendChild(row)
   }
 }
@@ -68,6 +67,7 @@ createWordleBoard3()
 // Choosing a random word from the list
 const len = wordList.length
 const chosenWord = wordList[Math.floor(Math.random() * len)]
+const colourArray = []
 
 // keyboard CLICK input
 let tries = 6 // number of words that player is allowed to guess
@@ -78,7 +78,7 @@ let nextLetter = 0 // keeps track of which letter we are on
 const infoDisplay = document.querySelector('#info')
 const multiplayerButton = document.querySelector('#linkButton2')
 let playerNum = 0 // assume player 0 until told otherwise
-let currentPlayer = 'user'
+let currentPlayer = 'opponent1'
 
 const socket = io()
 
@@ -89,9 +89,9 @@ socket.on('player-number', num => {
   } else {
     playerNum = parseInt(num) // data transmitted is a string
     if (playerNum === 1) {
-      currentPlayer = 'opponent1'
-    } else if (playerNum === 2) {
       currentPlayer = 'opponent2'
+    } else if (playerNum === 2) {
+      currentPlayer = 'opponent3'
     }
     console.log(playerNum)
     // other players present
@@ -101,18 +101,15 @@ socket.on('player-number', num => {
 
 // another player has connected or disconnected
 socket.on('player-connection', num => {
-  console.log(`Player number ${num} has connected/disconnected`)
   playerConnectedOrDisconnected(num)
+  console.log(`Player number ${num} has connected/disconnected`)
 })
 
-function playerConnectedOrDisconnected (num) {
-  const player = `.p${parseInt(num) + 1}` // looking for the class in html file
-  // console.log(player)
-  /* document.querySelector(`${player} .connected span`) // .classList.toggle('green')
-  if (parseInt(num) === playerNum) {
-    document.querySelector(playerNum).style.fontWeight = 'bold'
-  }
-  */
+function playerConnectedOrDisconnected (num) { // looking for the class in html file
+  const player = `.p${parseInt(num)}`
+  document.querySelector(`${player} .connected span`).classList.toggle('green')
+
+  if (parseInt(num) === playerNum) document.querySelector(player).style.fontWeight = 'bold'
 }
 
 document.getElementById('keyboard').addEventListener('click', (event) => {
@@ -214,6 +211,7 @@ function changeColour (row, correctInput) {
 
       correctInput[letterPosition] = '#'
     }
+    colourArray.push(letterColour)
 
     const delay = 250 * i
     setTimeout(() => {
@@ -221,6 +219,7 @@ function changeColour (row, correctInput) {
       shadeKeyBoard(letter, letterColour)
     }, delay)
   }
+  return colourArray
 }
 
 function checkInput () {
@@ -230,6 +229,16 @@ function checkInput () {
 
   for (const val of guess) {
     inputString += val
+  }
+  if (currentPlayer === 'opponent1') {
+    const input1 = inputString
+  }
+
+  if (currentPlayer === 'opponent2') {
+    const input2 = inputString
+  }
+  if (currentPlayer === 'opponent3') {
+    const input3 = inputString
   }
 
   if (inputString.length != 5) {
@@ -244,6 +253,7 @@ function checkInput () {
   ) {
     alert('Invalid: the word is not on the list')
     changeColour(row, correctInput)
+    console.log(colourArray[1])
     tries -= 1
     guess = []
     nextLetter = 0

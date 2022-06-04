@@ -39,7 +39,7 @@ io.on('connection', socket => { // socket is the client connected
   // console.log('New socket connection')
   // find an available player number
   let playerIndex = -1
-   for (const i in connections) {
+  for (const i in connections) {
     if (connections[i] === null) {
       playerIndex = i
       break
@@ -52,10 +52,9 @@ io.on('connection', socket => { // socket is the client connected
     return
   }
 
-  console.log(`Player ${playerIndex} has connected`)
+  console.log(`Player ${parseInt(playerIndex) + 1} has connected`)
 
   // ignore more than 3 players entering the multi player mode
-
 
   connections[playerIndex] = true
 
@@ -76,8 +75,8 @@ io.on('connection', socket => { // socket is the client connected
     const players = []
     for (const i in connections) {
       connections[i] === null
-? players.push({ connected: false }) 
-         : players.push({ connected: true })
+        ? players.push({ connected: false })
+        : players.push({ connected: true })
     }
     socket.emit('check-players', players)
   })
