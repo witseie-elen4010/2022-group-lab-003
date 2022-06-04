@@ -16,6 +16,8 @@
       "socket.io": "^4.5.1"
    },
    "devDependencies": {
-      "jest": "^28.1.0"
+      "jest": "^28.1.0",
+      "jest-playwright-preset": "^1.7.2",
+      "playwright": "^1.22.2"
    }
 }
