@@ -4,14 +4,14 @@ const username = document.querySelector('#username')
 const password = document.querySelector('#password')
 
 const form = document.querySelector('#login')
+console.log(username.value)
+console.log(password.value)
 
-
-const isUsernameValid = () => {
+function isUsernameValid() {
 
     let isValid = false
 
-    const min = 3,
-          max = 30
+    const min = 3, max = 30
 
     const userName = username.value.trim()
 
