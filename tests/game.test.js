@@ -9,7 +9,7 @@ let page
 jest.setTimeout(40 * 1000)
 
 beforeAll(async () => {
-   browser = await firefox.launch({ headless: false })
+   browser = await firefox.launch()
 })
 afterAll(async () => {
    await browser.close()
@@ -29,8 +29,7 @@ describe('Game page tests for elements', () => {
 
    test('One keyboard is displayed on Game page', async () => {
       await page.goto('https://multi-wordle.azurewebsites.net/game')
-      
-      await expect(page).toHaveSelectorCount('#keyboard', 1)
 
+      await expect(page).toHaveSelectorCount('#keyboard', 1)
    })
 })
