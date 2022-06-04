@@ -132,7 +132,7 @@ form.addEventListener('input', debounce(function (e) {
             isUsernameValid()
             break
         case 'password':
-            checkPassword()
+            isPasswordValid()
             break
     }
 }))
