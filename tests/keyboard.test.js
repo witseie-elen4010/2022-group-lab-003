@@ -21,6 +21,18 @@ afterEach(async () => {
    await page.close()
 })
 
+describe('Keyboard tests for the delete and enter buttons', () => {
+   test('The letter is deleted after clicking the delete button', async () => {
+      await page.goto('https://multi-wordle.azurewebsites.net/game')
+
+      await page.locator('button:has-text("z")').click()
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("Del")').click()
+      await expect(page).toMatchText('.row-part', 'za')
+   })
+})
+
 describe('Keyboard tests for each letter', () => {
    test('The correct letter is displayed on the game board after clicking the letter "z" on keyboard', async () => {
       await page.goto('https://multi-wordle.azurewebsites.net/game')
