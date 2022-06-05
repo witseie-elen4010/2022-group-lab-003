@@ -55,4 +55,24 @@ describe('Word tests for valid and invalid inputs and alerts', () => {
       await page.locator('button:has-text("b")').click()
       await expect(page).toMatchText('.row-part >> nth=1', '') //checks the 2nd row is still nothing
    })
+
+   test('The user cannot go to the next row if the word length NOT = 5 and the pop up comes up', async () => {
+      await page.goto('https://multi-wordle.azurewebsites.net/game')
+
+      await page.locator('button:has-text("z")').click()
+      await page.locator('button:has-text("e") >> nth=0').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("r") >> nth=0').click()
+      await page.locator('button:has-text("Enter") >> nth=0').click()
+
+      await page.on('dialog', async (dialog) => {
+         expect(dialog.message()).toEqual(
+            'Invalid: The word must be 5 letters long.'
+         )
+         await dialog.accept()
+      })
+
+      await page.locator('button:has-text("a")').click()
+      await expect(page).toMatchText('.row-part >> nth=0', 'zebra') //checks that the user still on same row
+   })
 })
