@@ -1,0 +1,4 @@
+CREATE TABLE GameLogDetails (
+  USERNAME nchar(50) NOT NULL,
+  INPUT_WORD nchar(50) NOT NULL
+);
