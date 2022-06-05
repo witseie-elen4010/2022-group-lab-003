@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt')
 const db = require('./database/db.js')
 //const main = require('./public/scripts/main.js')
 
-import { checkInput } from './public/scripts/main'
+// import { checkInput } from './public/scripts/main'
 
 app.use(mainRouter)
 
@@ -47,20 +47,23 @@ app.post('/', async function (req, res) { //login to send data to the database t
    
  })
 
- // keyboard CLICK input
- document.addEventListener('keyup', (event) => {
+//  // keyboard CLICK input
+//  document.addEventListener('keyup', (event) => {
 
-   let keyInput = String(event.key)
+//    let keyInput = String(event.key)
 
-   if (keyInput === 'Enter') {
-      checkInput
-      return
-   }
+//    if (keyInput === 'Enter') {
+//       checkInput
+//       return
+//    }
 
-})
+// })
 
 module.exports = app
 
 const port = process.env.PORT || 3000
 app.listen(port)
 console.log('Express server running on port', port)
+// const getPath = path.join(__dirname,'./public/scripts/main.js')
+// const getWord = require(getPath)
+// console.log('word-from-main.js:', getWord)

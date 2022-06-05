@@ -155,7 +155,8 @@ function checkInput() {
    const row = document.getElementsByClassName('row-part')[6 - tries]
    let inputString = ''
    const correctInput = Array.from(chosenWord)
-
+   console.log('chosen-word:',chosenWord) // tells the clietn side what the chosen word
+   
    for (const val of guess) {
       inputString += val
    }
@@ -202,5 +203,3 @@ function checkInput() {
       }
    }
 }
-
-module.exports = { checkInput }
