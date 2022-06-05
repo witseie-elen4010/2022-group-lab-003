@@ -5,7 +5,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const mainRouter = require('./routes/mainRoutes')
-const users = []
+let users = []
 const bcrypt = require('bcrypt')
 const db = require('./database/db.js')
 
@@ -13,7 +13,7 @@ app.use(mainRouter)
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/', mainRouter)
 app.use('/public/stylesheets',express.static(__dirname + '/public/stylesheets'))
@@ -33,13 +33,13 @@ app.post('/',async (req,res) => {
       res.redirect('/') //incase of a failure redirect back to main page i.e. login
 
    }
-   console.log(users.username) //check when added a user into the game
+   console.log(users) //check when added a user into the game
 })
 
 app.get('/database', function (req, res) { //when you go into /database it updates the database
    
-   let user = req.body.username
-   let pass = req.body.password
+   let user = users.username
+   let pass = users.password
    // Make a query to the database
     db.pools
     // Run query
@@ -58,27 +58,6 @@ app.get('/database', function (req, res) { //when you go into /database it updat
     })
     })
  })
- app.get('/database', function (req, res) { //when you go into /database it updates the database
-   
-   // Make a query to the database
-    db.pools
-    // Run query
-    .then((pool) => {
-    return pool.request()
-    .query(`SELECT * FROM [Login]`)
-    })
-    // Send back the result
-    .then(result => {
-    res.send(result)
-    })
-    // If there's an error, return that with some description
-    .catch(err => {
-    res.send({
-    Error: err
-    })
-    })
- })
-
 
 module.exports = app
 
