@@ -21,7 +21,7 @@
    "setupFilesAfterEnv": [
       "expect-playwright"
    ]
-}
+},
   "scripts": {
     "test": "jest --coverage",
     "start": "node index",
