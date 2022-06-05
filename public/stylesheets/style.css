@@ -134,7 +134,7 @@ a:active {
 }
 
 /*for login button*/
-button, input[type=submit] {
+button{
    background-color: palevioletred;
    color: black;
    border:rgb(11, 4, 9);

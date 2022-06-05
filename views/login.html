@@ -40,42 +40,21 @@
       </h1>
       <hr>
 
-   <div class="container">
-      <form id="login" class="form" actions="/" method="POST">  
-       <div>
-         <label for="username">Username : </label>
-         <input
-            type="text"
-            placeholder="Enter Username"
-            name="username"
-            id = "username"
-            autocomplete="off"
-            required
-         >
-         <small></small>
-       </div>
+<h3>Login</h3>
+<form action="/" method="POST">
+   <div>
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" placeholder="Enter Username"
+      required/>
+   </div>
+   <div>
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" placeholder="Enter Password"
+      required/>
+   </div>
+   <button type="submit"> Submit</button>
+</form>
 
-       <div>
-         <label for="password">Password : </label>
-         <input
-            type="password"
-            placeholder="Enter Password"
-            name="password"
-            id = "password"
-            autocomplete="off"
-            required
-         >
-         <small></small>
-       </div>
-      
-      <div> 
-       <button id="linkButton2"> 
-          <input type="submit"  value="Log in"> 
-      </button>
-      </div> 
-   </form>
-</div>
- 
 <script type="module" src="../public/scripts/login.js"></script>
 
 </body>

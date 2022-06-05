@@ -7,14 +7,14 @@ const app = express()
 const mainRouter = require('./routes/mainRoutes')
 const users = []
 const bcrypt = require('bcrypt')
-app.use(express.urlencoded({ extened: false})) // tells us we want to access our inputs
+// app.use(express.urlencoded({ extened: false})) // tells us we want to access our inputs
 
 
 app.use(mainRouter)
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use('/', mainRouter)
 app.use('/public/stylesheets',express.static(__dirname + '/public/stylesheets'))
@@ -27,13 +27,14 @@ app.post('/',async (req,res) => {
       const hashedPassword = await bcrypt.hash(req.body.password, 10) // standard default value
       users.push({
          username: req.body.username,
-         password: hashedPassword
+         password: hashedPassword //hased password to store in our database because it is safer
       })
+      res.redirect('/options')
    } catch {
-      res.redict('/')
+      res.redict('/') //incase of a failure redirect back to main page i.e. login
 
    }
-   console.log(users)
+   console.log(users) //check when added a user into the game
 })
 
 
