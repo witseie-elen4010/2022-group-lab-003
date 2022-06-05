@@ -171,11 +171,6 @@ function checkInput() {
       tries > 1
    ) {
       alert('Invalid: the word is not on the list')
-      changeColour(row, correctInput)
-      tries -= 1
-      guess = []
-      nextLetter = 0
-
       return
    }
 
