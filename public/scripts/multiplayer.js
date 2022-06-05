@@ -42,20 +42,15 @@ function createWordleBoard2 () {
 }
 */ 
 
-function createWordleBoard2 () {
+function createWordleBoard2 ( recieveNum, recieveCol) {
   const board = document.getElementById('wordle-board2')
-    socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
   
-  //console.log("sent array and number ")
-  socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
-    let recieveNum = playerNum1
-    let recieveCol = colourArray1
     console.log('Array Colour')
     for (let i = 0; i < 5; i++) {
       console.log(recieveCol[i])
     }
 
-  if(recieveNum === 1) {
+  if(recieveNum === 1|| recieveNum === 0) {
     console.log('draw board 2')
     //for (let i = 0; i < 6; i++) {
       const row = document.createElement('div')
@@ -65,21 +60,20 @@ function createWordleBoard2 () {
       for (let j = 0; j < 5; j++) {
         
         const col = document.createElement('div')
-        const box = row.children[j]
+        let box = row.children[j]
         col.className = 'column-piece2'
         row.appendChild(col)
         const delay = 250 * j
         setTimeout(() => {
-          box.style.backgroundColor = recieveCol[j]               // style.backgroundColor = recieveCol[j]
+        row.children[j].style.backgroundColor = recieveCol[j]             // style.backgroundColor = recieveCol[j]
         }, delay)
       }
-  
       board.appendChild(row)
    // }
   
   }
-})
 }
+
 
 
 function createWordleBoard3 () {
@@ -172,8 +166,14 @@ document.getElementById('keyboard').addEventListener('click', (event) => {
 
   if (key === 'Enter') {
     checkInput()
-    createWordleBoard2()  
-    console.log('after board')
+    socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
+  
+    //console.log("sent array and number ")
+    socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
+      let recieveNum = playerNum1
+      let recieveCol = colourArray1
+      createWordleBoard2(recieveNum, recieveCol)
+    })
     return
   }
 
