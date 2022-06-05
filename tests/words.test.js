@@ -34,4 +34,25 @@ describe('Word tests for valid and invalid inputs and alerts', () => {
       await page.locator('button:has-text("l") >> nth=0').click()
       await expect(page).toMatchText('.row-part >> nth=1', 'l') //checks the 2nd row
    })
+
+   test('The user cannot go to the next row if their word is invalid and the pop up comes up', async () => {
+      await page.goto('https://multi-wordle.azurewebsites.net/game')
+
+      await page.locator('button:has-text("z")').click()
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("Enter") >> nth=0').click()
+
+      await page.on('dialog', async (dialog) => {
+         expect(dialog.message()).toEqual(
+            'Invalid: the word is not on the list'
+         )
+         await dialog.accept()
+      })
+
+      await page.locator('button:has-text("b")').click()
+      await expect(page).toMatchText('.row-part >> nth=1', '') //checks the 2nd row is still nothing
+   })
 })
