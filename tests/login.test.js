@@ -65,5 +65,14 @@ describe('Login requirements', () => {
    expect(await page.title()).toBe('Options Page')
 })
 
+test('Unsuccessful login - username too short', async () => {
+   await page.goto('https://multi-wordle.azurewebsites.net')
+   await page.locator('id=username').fill('a')
+   await page.locator('id=password').fill('1Abcdefg')
+   await page.click('#linkButton2')
+   await page.click('#linkButton2')
+   expect(await page.title()).toBe('Multi-Wordle Login Page')
+})
+
 })
 
