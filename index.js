@@ -21,38 +21,19 @@ app.use('/public/scripts', express.static(__dirname + '/public/scripts'))
 app.use('/database', express.static(__dirname + '/database'))
 app.use('/routes', express.static(__dirname + '/routes'))
 
-// app.post('/',async (req,res) => {
-//    try {
-//       const hashedPassword = await bcrypt.hash(req.body.password, 10) // standard default value
-//       users.push({
-//          username: req.body.username,
-//          password: hashedPassword //hased password to store in our database because it is safer
-//       })
-//       res.redirect('/options')
-//    } catch {
-//       res.redirect('/') //incase of a failure redirect back to main page i.e. login
-
-//    }
-//    console.log(users) //check when added a user into the game
-// })
-
-app.post('/', async function (req, res) { //when you go into /database it updates the database
+app.post('/', async function (req, res) { //login to send data to the database tables
    
    let user = req.body.username
    let pass = req.body.password
-   // var hashPassword = async function(){
-   //    var hashedPassword = await bcrypt.hash(pass, 10)
-   //    return hashedPassword
-   // }
-   const hashedPassword = await bcrypt.hash(req.body.password, 10) // standard default value
+   
    // Make a query to the database
     db.pools
     // Run query
     .then((pool) => {
     return pool.request()
-    .query(`INSERT INTO Login(username, password) VALUES('${user}','${pass}');`)
+    .query(`INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));`) //database stores the hashed password
     })
-    // Send back the result
+    // redirect after login to the game
     .then(res.redirect('/options'))
     // If there's an error, return that with some description
     .catch(err => {
@@ -60,7 +41,7 @@ app.post('/', async function (req, res) { //when you go into /database it update
     Error: err
     })
     })
-   console.log(hashedPassword)
+   
  })
 
 module.exports = app
