@@ -1,6 +1,8 @@
 'use strict'
 // For routes and azure setup
 
+//import { checkInput } from './public/scripts/main.js'
+
 const path = require('path')
 const express = require('express')
 const app = express()
@@ -8,9 +10,12 @@ const mainRouter = require('./routes/mainRoutes')
 let users = []
 const bcrypt = require('bcrypt')
 const db = require('./database/db.js')
+<<<<<<< HEAD
 //const main = require('./public/scripts/main.js')
 
 // import { checkInput } from './public/scripts/main'
+=======
+>>>>>>> baedcca946481de784b35f89242b7c2dd6fc92b2
 
 app.use(mainRouter)
 
@@ -33,8 +38,11 @@ app.post('/', async function (req, res) { //login to send data to the database t
     db.pools
     // Run query
     .then((pool) => {
-    return pool.request()
-    .query(`INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));`) //database stores the hashed password
+    return pool.request() //multiple table query. Replace 'hello' with actual guess
+    .query(`BEGIN TRANSACTION
+            INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));
+            INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','hello');
+            COMMIT`) 
     })
     // redirect after login to the game
     .then(res.redirect('/options'))

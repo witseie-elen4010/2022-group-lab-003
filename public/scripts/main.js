@@ -44,7 +44,7 @@ document.addEventListener('keyup', (event) => {
 
    if (keyInput === 'Enter') {
       checkInput()
-      return
+      return 
    }
 
    let found = keyInput.match(/[a-z]/gi)
