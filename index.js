@@ -80,4 +80,13 @@ io.on('connection', socket => { // socket is the client connected
     }
     socket.emit('check-players', players)
   })
+
+  // recieving colour array of each player
+  socket.on('IdentifyingPlayer', playerNum => {
+    console.log(playerNum)
+  })
+  socket.on('SendingColours', colourArray => {
+    console.log(colourArray[1])
+  })
+
 })

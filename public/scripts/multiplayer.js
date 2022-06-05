@@ -131,6 +131,9 @@ document.getElementById('keyboard').addEventListener('click', (event) => {
 
   if (key === 'Enter') {
     checkInput()
+    socket.emit('IdentifyingPlayer', playerNum)
+    socket.emit('SendingColours', colourArray)
+    console.log("sent array and number ")
     return
   }
 
@@ -230,16 +233,6 @@ function checkInput () {
   for (const val of guess) {
     inputString += val
   }
-  if (currentPlayer === 'opponent1') {
-    const input1 = inputString
-  }
-
-  if (currentPlayer === 'opponent2') {
-    const input2 = inputString
-  }
-  if (currentPlayer === 'opponent3') {
-    const input3 = inputString
-  }
 
   if (inputString.length != 5) {
     alert('Invalid: The word must be 5 letters long.')
@@ -253,7 +246,6 @@ function checkInput () {
   ) {
     alert('Invalid: the word is not on the list')
     changeColour(row, correctInput)
-    console.log(colourArray[1])
     tries -= 1
     guess = []
     nextLetter = 0
