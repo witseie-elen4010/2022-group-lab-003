@@ -36,3 +36,16 @@ describe('Login page heading tests for Login, Options and Game pages', () => {
       expect(await page.title()).toBe('MULTI-WORDLE')
    })
 })
+
+describe('Login requirements', () => {
+   test('Successful login - password has eight charaters', async () => {
+       await page.goto('https://multi-wordle.azurewebsites.net')
+       await page.locator('id=username').fill('admin')
+       await page.locator('id=password').fill('1Abcdefg')
+       await page.click('#linkButton2')
+       await page.click('#linkButton2')
+       expect(await page.title()).toBe('Options Page')
+   })
+
+})
+
