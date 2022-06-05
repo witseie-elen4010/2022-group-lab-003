@@ -47,5 +47,14 @@ describe('Login requirements', () => {
        expect(await page.title()).toBe('Options Page')
    })
 
+   test('Successful login - password has more than eight letters and one number', async () => {
+      await page.goto('https://multi-wordle.azurewebsites.net')
+      await page.locator('id=username').fill('admin')
+      await page.locator('id=password').fill('abcDEF1GHIjkl')
+      await page.click('#linkButton2')
+      await page.click('#linkButton2')
+      expect(await page.title()).toBe('Options Page')
+  })
+
 })
 
