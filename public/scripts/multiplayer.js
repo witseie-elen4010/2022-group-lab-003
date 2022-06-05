@@ -20,7 +20,7 @@ function createWordleBoard1 () {
     board.appendChild(row)
   }
 }
-
+/*
 function createWordleBoard2 () {
   const board = document.getElementById('wordle-board2')
   // the board creation is the same as how a 2d array is created (nested-for loop).
@@ -40,6 +40,47 @@ function createWordleBoard2 () {
     board.appendChild(row)
   }
 }
+*/ 
+
+function createWordleBoard2 () {
+  const board = document.getElementById('wordle-board2')
+    socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
+  
+  //console.log("sent array and number ")
+  socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
+    let recieveNum = playerNum1
+    let recieveCol = colourArray1
+    console.log('Array Colour')
+    for (let i = 0; i < 5; i++) {
+      console.log(recieveCol[i])
+    }
+
+  if(recieveNum === 1) {
+    console.log('draw board 2')
+    //for (let i = 0; i < 6; i++) {
+      const row = document.createElement('div')
+      row.className = 'row-part2'
+  
+      // the length of each word can only be 5 hence why only 5 columns are created before the next row.
+      for (let j = 0; j < 5; j++) {
+        
+        const col = document.createElement('div')
+        const box = row.children[j]
+        col.className = 'column-piece2'
+        row.appendChild(col)
+        const delay = 250 * j
+        setTimeout(() => {
+          box.style.backgroundColor = recieveCol[j]               // style.backgroundColor = recieveCol[j]
+        }, delay)
+      }
+  
+      board.appendChild(row)
+   // }
+  
+  }
+})
+}
+
 
 function createWordleBoard3 () {
   const board = document.getElementById('wordle-board3')
@@ -62,7 +103,7 @@ function createWordleBoard3 () {
 }
 
 createWordleBoard1()
-createWordleBoard2()
+// createWordleBoard2()
 createWordleBoard3()
 // Choosing a random word from the list
 const len = wordList.length
@@ -131,9 +172,8 @@ document.getElementById('keyboard').addEventListener('click', (event) => {
 
   if (key === 'Enter') {
     checkInput()
-    socket.emit('IdentifyingPlayer', playerNum)
-    socket.emit('SendingColours', colourArray)
-    console.log("sent array and number ")
+    createWordleBoard2()  
+    console.log('after board')
     return
   }
 
@@ -229,7 +269,8 @@ function checkInput () {
   const row = document.getElementsByClassName('row-part1')[6 - tries]
   let inputString = ''
   const correctInput = Array.from(chosenWord)
-
+ console.log('chosen word')
+ console.log(chosenWord)
   for (const val of guess) {
     inputString += val
   }
