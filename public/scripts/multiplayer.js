@@ -142,6 +142,8 @@ socket.on('player-connection', num => {
   playerConnectedOrDisconnected(num)
   console.log(`Player number ${num} has connected/disconnected`)
 })
+
+// listening for opponents inputs 
 socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
   console.log('i am listening')
   recieveNum = playerNum1
@@ -153,6 +155,11 @@ socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
     creatingOppBoards(recieveNum,recieveCol, currentPlayer)
 
   }, delay)
+
+  // recieving winner message 
+  socket.on('Winner', playerNum => {
+    console.log(`Player ${playerNum} is the winner`)
+  })
 
   
  // createWordleBoard2(recieveNum, recieveCol)
@@ -339,19 +346,23 @@ function checkInput () {
   if (inputString === chosenWord) {
     alert('Correct! You win!')
     changeColour(row, correctInput)
+    socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
     console.log("after change colour")
+    socket.emit('CheckWinner', playerNum)
+    
 
     tries = 0
   } else {
     tries -= 1
     guess = []
     nextLetter = 0
-
+    
     if (tries === 0) {
       alert('You lose. Guesses ran out.')
       alert(`Correct word: "${chosenWord}"`)
     }
+  }
    
     
   }
-}
+ 

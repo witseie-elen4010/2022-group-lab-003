@@ -91,6 +91,11 @@ io.on('connection', socket => { // socket is the client connected
     console.log("sent broadcast")
     console.log(playerNum1)
   })
+
+  socket.on('CheckWinner', playerNum => {
+    console.log(`Player ${playerNum} is the winner`)
+    socket.broadcast.emit('Winner', playerNum)
+  })
     
 
  
