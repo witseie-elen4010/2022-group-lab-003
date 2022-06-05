@@ -7,8 +7,7 @@ const app = express()
 const mainRouter = require('./routes/mainRoutes')
 const users = []
 const bcrypt = require('bcrypt')
-// app.use(express.urlencoded({ extened: false})) // tells us we want to access our inputs
-
+const db = require('./database/db.js')
 
 app.use(mainRouter)
 
@@ -31,13 +30,34 @@ app.post('/',async (req,res) => {
       })
       res.redirect('/options')
    } catch {
-      res.redict('/') //incase of a failure redirect back to main page i.e. login
+      res.redirect('/') //incase of a failure redirect back to main page i.e. login
 
    }
    console.log(users) //check when added a user into the game
 })
 
-
+app.get('/database', function (req, res) { //when you go into /database it updates the database
+   
+   let user = req.body.username
+   let pass = req.body.password
+   // Make a query to the database
+    db.pools
+    // Run query
+    .then((pool) => {
+    return pool.request()
+    .query(`INSERT INTO Login(username, password) VALUES('${user}','${pass}');`)
+    })
+    // Send back the result
+    .then(result => {
+    res.send(result)
+    })
+    // If there's an error, return that with some description
+    .catch(err => {
+    res.send({
+    Error: err
+    })
+    })
+ })
 
 
 module.exports = app
