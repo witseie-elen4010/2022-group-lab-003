@@ -10,12 +10,6 @@ const mainRouter = require('./routes/mainRoutes')
 let users = []
 const bcrypt = require('bcrypt')
 const db = require('./database/db.js')
-<<<<<<< HEAD
-//const main = require('./public/scripts/main.js')
-
-// import { checkInput } from './public/scripts/main'
-=======
->>>>>>> baedcca946481de784b35f89242b7c2dd6fc92b2
 
 app.use(mainRouter)
 
@@ -42,7 +36,7 @@ app.post('/', async function (req, res) { //login to send data to the database t
     .query(`BEGIN TRANSACTION
             INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));
             INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','hello');
-            COMMIT`) 
+            COMMIT`) //trying for the input to the word db
     })
     // redirect after login to the game
     .then(res.redirect('/options'))
