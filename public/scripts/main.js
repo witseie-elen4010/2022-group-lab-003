@@ -202,3 +202,5 @@ function checkInput() {
       }
    }
 }
+
+module.exports = { checkInput }
