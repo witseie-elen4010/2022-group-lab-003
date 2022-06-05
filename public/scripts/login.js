@@ -5,13 +5,11 @@ const password = document.querySelector('#password')
 
 const form = document.querySelector('#login')
 
-
-const isUsernameValid = () => {
+function isUsernameValid() {
 
     let isValid = false
 
-    const min = 3,
-          max = 30
+    const min = 3, max = 30
 
     const userName = username.value.trim()
 
@@ -78,7 +76,6 @@ function dispSuccess(input) {
     error.textContent = ''
 }
 
-
 form.addEventListener('submit', function (e) {
     // prevent the form from submitting
     e.preventDefault();
@@ -89,15 +86,13 @@ form.addEventListener('submit', function (e) {
         
     let isLoginValid = validPassword && validUsername
 
-    
     // if the form is valid then redirect to options page
     if (isLoginValid) {
         document.getElementById("linkButton2").onclick= function() {
             location.href="./options"
-        }   
-    }
+        } 
+    } 
 })
-
 
 function debounce(fn, delay = 500) {
     let timeoutId;
@@ -120,7 +115,8 @@ form.addEventListener('input', debounce(function (e) {
             isUsernameValid()
             break
         case 'password':
-            checkPassword()
+            isPasswordValid()
             break
     }
 }))
+

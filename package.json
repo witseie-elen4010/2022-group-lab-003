@@ -1,28 +1,44 @@
 {
-   "name": "src",
-   "version": "1.0.0",
-   "description": "",
-   "main": "index.js",
-   "scripts": {
-      "test": "jest --coverage"
-   },
-   "author": "",
-   "license": "ISC",
-   "dependencies": {
-      "express": "4.18.1",
-      "live-server": "^1.2.2",
-      "mssql": "8.1.2",
-      "socket.io": "^4.5.1"
-   },
-   "devDependencies": {
-      "expect-playwright": "^0.8.0",
-      "jest": "^28.1.0",
-      "jest-playwright-preset": "^1.7.2",
-      "playwright": "^1.22.2"
-   },
-   "jest": {
-      "setupFilesAfterEnv": [
-         "expect-playwright"
-      ]
-   }
+  "name": "2022-group-lab-003",
+  "version": "1.0.0",
+  "description": "The following is the README file for Group 3's Lab Project for ELEN4010 2022.",
+  "main": "index.js",
+  "author": "group-003",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "live-server": "^1.1.0",
+    "mssql": "^8.1.2",
+    "socket.io": "^4.5.1",
+    "sqlite3": "^5.0.8",
+    "tedious": "^14.5.0"
+  },
+  "scripts": {
+    "test": "jest --coverage",
+    "devStart": "nodemon index.js"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "expect-playwright": "^0.8.0",
+    "jest": "^28.1.0",
+    "jest-playwright-preset": "^1.7.2",
+    "nodemon": "^2.0.16",
+    "playwright": "^1.22.2"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "expect-playwright"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/witseie-elen4010/2022-group-lab-003.git"
+  },
+  "bugs": {
+    "url": "https://github.com/witseie-elen4010/2022-group-lab-003/issues"
+  },
+  "homepage": "https://github.com/witseie-elen4010/2022-group-lab-003#readme",
+  "keywords": []
 }
