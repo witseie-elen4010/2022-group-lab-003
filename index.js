@@ -46,6 +46,7 @@ app.get('/database', function (req, res) { //when you go into /database it updat
     .then((pool) => {
     return pool.request()
     .query(`INSERT INTO Login(username, password) VALUES('${user}','${pass}');`)
+   //  .query(`INSERT INTO (username) VALUES('${user}');`)
     })
     // Send back the result
     .then(result => {

@@ -1,4 +1,7 @@
 'use strict'
+// To connect to database
+const db = require('.../database/db.js')
+
 // Importing list of 5 letter words
 import { wordList } from './Wordlist.js'
 function createWordleBoard() {
@@ -44,6 +47,26 @@ document.addEventListener('keyup', (event) => {
 
    if (keyInput === 'Enter') {
       checkInput()
+
+   // send word to database
+        // Make a query to the database
+         // db.pools
+         // // Run query
+         // .then((pool) => {
+         // return pool.request()
+         // .query(`INSERT INTO (word) VALUES('${keyInput}');`)
+         // })
+         // // Send back the result
+         // .then(result => {
+         // res.send(result)
+         // })
+         // // If there's an error, return that with some description
+         // .catch(err => {
+         // res.send({
+         // Error: err
+         // })
+         // })
+
       return
    }
 
