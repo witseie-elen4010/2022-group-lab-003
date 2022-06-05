@@ -87,7 +87,7 @@ io.on('connection', socket => { // socket is the client connected
     let colourArray1 = colourArray
     
     console.log(colourArray1[1])
-    socket.emit('IdentifyingPlayerColours', ({ playerNum1, colourArray1}))
+    socket.broadcast.emit('IdentifyingPlayerColours', ({ playerNum1, colourArray1}))
     console.log("sent broadcast")
     console.log(playerNum1)
   })
