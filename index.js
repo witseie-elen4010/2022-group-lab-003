@@ -36,17 +36,21 @@ app.use('/routes', express.static(__dirname + '/routes'))
 //    console.log(users) //check when added a user into the game
 // })
 
-app.post('/', function (req, res) { //when you go into /database it updates the database
+app.post('/', async function (req, res) { //when you go into /database it updates the database
    
    let user = req.body.username
    let pass = req.body.password
-   const hashedPassword = bcrypt.hash(req.body.password, 10) // standard default value
+   // var hashPassword = async function(){
+   //    var hashedPassword = await bcrypt.hash(pass, 10)
+   //    return hashedPassword
+   // }
+   const hashedPassword = await bcrypt.hash(req.body.password, 10) // standard default value
    // Make a query to the database
     db.pools
     // Run query
     .then((pool) => {
     return pool.request()
-    .query(`INSERT INTO Login(username, password) VALUES('${user}','${hashedPassword}');`)
+    .query(`INSERT INTO Login(username, password) VALUES('${user}','${pass}');`)
     })
     // Send back the result
     .then(res.redirect('/options'))
@@ -56,6 +60,7 @@ app.post('/', function (req, res) { //when you go into /database it updates the 
     Error: err
     })
     })
+   console.log(hashedPassword)
  })
 
 module.exports = app
