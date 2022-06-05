@@ -1,6 +1,10 @@
 'use strict'
 // Importing list of 5 letter words
 import { wordList } from './Wordlist.js'
+// Choosing a random word from the list
+const len = wordList.length
+const chosenWord = wordList[Math.floor(Math.random() * len)]
+let colourArray = []
 
 function createWordleBoard1 () {
   const board = document.getElementById('wordle-board1')
@@ -20,27 +24,6 @@ function createWordleBoard1 () {
     board.appendChild(row)
   }
 }
-/*
-function createWordleBoard2 () {
-  const board = document.getElementById('wordle-board2')
-  // the board creation is the same as how a 2d array is created (nested-for loop).
-  // first, the row is created and then each column in that row is made before moving to the next row.
-  // the maximum number of tries that a player gets is 6 therefore the number of rows is 6.
-  for (let i = 0; i < 6; i++) {
-    const row = document.createElement('div')
-    row.className = 'row-part2'
-
-    // the length of each word can only be 5 hence why only 5 columns are created before the next row.
-    for (let j = 0; j < 5; j++) {
-      const col = document.createElement('div')
-      col.className = 'column-piece2'
-      row.appendChild(col)
-    }
-
-    board.appendChild(row)
-  }
-}
-*/ 
 
 function createWordleBoard2 ( recieveNum, recieveCol) {
   const board = document.getElementById('wordle-board2')
@@ -60,7 +43,6 @@ function createWordleBoard2 ( recieveNum, recieveCol) {
       for (let j = 0; j < 5; j++) {
         
         const col = document.createElement('div')
-        let box = row.children[j]
         col.className = 'column-piece2'
         row.appendChild(col)
         const delay = 250 * j
@@ -76,7 +58,7 @@ function createWordleBoard2 ( recieveNum, recieveCol) {
 
 
 
-function createWordleBoard3 () {
+function createWordleBoard3 ( recieveNum, recieveCol) {
   const board = document.getElementById('wordle-board3')
   // the board creation is the same as how a 2d array is created (nested-for loop).
   // first, the row is created and then each column in that row is made before moving to the next row.
@@ -99,10 +81,7 @@ function createWordleBoard3 () {
 createWordleBoard1()
 // createWordleBoard2()
 createWordleBoard3()
-// Choosing a random word from the list
-const len = wordList.length
-const chosenWord = wordList[Math.floor(Math.random() * len)]
-const colourArray = []
+
 
 // keyboard CLICK input
 let tries = 6 // number of words that player is allowed to guess
@@ -166,14 +145,8 @@ document.getElementById('keyboard').addEventListener('click', (event) => {
 
   if (key === 'Enter') {
     checkInput()
-    socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
-  
-    //console.log("sent array and number ")
-    socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
-      let recieveNum = playerNum1
-      let recieveCol = colourArray1
-      createWordleBoard2(recieveNum, recieveCol)
-    })
+   
+    
     return
   }
 
@@ -237,32 +210,55 @@ function shadeKeyBoard (letter, _colour) {
 }
 
 function changeColour (row, correctInput) {
+  console.log('in change colour')
+  colourArray = []
   for (let i = 0; i < 5; i++) {
     let letterColour = ''
     const box = row.children[i]
     const letter = guess[i]
+    
 
     const letterPosition = correctInput.indexOf(guess[i])
+    
     if (letterPosition === -1) {
       letterColour = 'grey'
+      colourArray.push(letterColour)
     } else {
       if (guess[i] === correctInput[i]) {
         letterColour = 'green'
+        colourArray.push(letterColour)
       } else {
         letterColour = 'yellow'
+        colourArray.push(letterColour)
       }
-
+      
       correctInput[letterPosition] = '#'
     }
-    colourArray.push(letterColour)
-
+    
+    console.log(i, colourArray[i], guess[i])
     const delay = 250 * i
     setTimeout(() => {
       box.style.backgroundColor = letterColour
       shadeKeyBoard(letter, letterColour)
     }, delay)
   }
+  console.log('Array Colour')
+  for (let i = 0; i < 5; i++) {
+    console.log(colourArray[i])
+  }
+  
+  console.log('before frist emit')
+  socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
+  console.log('after frist emit')
+  socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
+    let recieveNum = playerNum1
+    let recieveCol = colourArray1
+    console.log('calling wordleboard')
+    createWordleBoard2(recieveNum, recieveCol)
+  })
+  
   return colourArray
+  
 }
 
 function checkInput () {
@@ -310,6 +306,8 @@ function checkInput () {
   if (inputString === chosenWord) {
     alert('Correct! You win!')
     changeColour(row, correctInput)
+    console.log("after change colour")
+
     tries = 0
   } else {
     tries -= 1
