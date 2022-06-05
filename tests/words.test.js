@@ -75,4 +75,55 @@ describe('Word tests for valid and invalid inputs and alerts', () => {
       await page.locator('button:has-text("a")').click()
       await expect(page).toMatchText('.row-part >> nth=0', 'zebra') //checks that the user still on same row
    })
+
+   test('The alert for losing appears if all guesses have been used and the word is incorrect', async () => {
+      await page.goto('https://multi-wordle.azurewebsites.net/game')
+
+      await page.locator('button:has-text("z")').click()
+      await page.locator('button:has-text("e") >> nth=0').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("r") >> nth=0').click()
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("Enter") >> nth=0').click()
+
+      await page.locator('button:has-text("z")').click()
+      await page.locator('button:has-text("e") >> nth=0').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("r") >> nth=0').click()
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("Enter") >> nth=0').click()
+
+      await page.locator('button:has-text("z")').click()
+      await page.locator('button:has-text("e") >> nth=0').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("r") >> nth=0').click()
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("Enter") >> nth=0').click()
+
+      await page.locator('button:has-text("z")').click()
+      await page.locator('button:has-text("e") >> nth=0').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("r") >> nth=0').click()
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("Enter") >> nth=0').click()
+
+      await page.locator('button:has-text("z")').click()
+      await page.locator('button:has-text("e") >> nth=0').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("r") >> nth=0').click()
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("Enter") >> nth=0').click()
+
+      await page.locator('button:has-text("z")').click()
+      await page.locator('button:has-text("e") >> nth=0').click()
+      await page.locator('button:has-text("b")').click()
+      await page.locator('button:has-text("r") >> nth=0').click()
+      await page.locator('button:has-text("a")').click()
+      await page.locator('button:has-text("Enter") >> nth=0').click()
+
+      await page.on('dialog', async (dialog) => {
+         expect(dialog.message()).toEqual('You lose. Guesses ran out.')
+         await dialog.accept()
+      })
+   })
 })
