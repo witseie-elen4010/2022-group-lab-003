@@ -44,7 +44,7 @@ document.addEventListener('keyup', (event) => {
 
    if (keyInput === 'Enter') {
       checkInput()
-      return
+      return 
    }
 
    let found = keyInput.match(/[a-z]/gi)
@@ -203,4 +203,17 @@ function checkInput() {
    }
 }
 
-module.exports = { checkInput }
+// keyboard CLICK input
+// function getInput() { document.addEventListener('keyup', (event) => {
+
+//    let Input = String(event.key)
+
+//    if (Input === 'Enter') {
+      
+//       checkInput()
+//       return Input
+//    }
+// })
+// }
+
+//module.exports = { getInput }
