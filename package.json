@@ -11,8 +11,19 @@
     "mssql": "8.1.2",
     "socket.io": "^4.5.1"
   },
+  "devDependencies": {
+   "expect-playwright": "^0.8.0",
+   "jest": "^28.1.0",
+   "jest-playwright-preset": "^1.7.2",
+   "playwright": "^1.22.2"
+},
+"jest": {
+   "setupFilesAfterEnv": [
+      "expect-playwright"
+   ]
+}
   "scripts": {
-    "test": "",
+    "test": "jest --coverage",
     "start": "node index",
     "dev": "nodemon index"
   },

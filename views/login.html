@@ -20,6 +20,7 @@
          href="/public/stylesheets/style.css"
       />
    </head>
+   
    <body class="text-bg-dark p-3 text-center text-white">
       <!-- JavaScript Bundle with Popper (Bootstrap) -->
       <script
@@ -29,44 +30,51 @@
       ></script>
 
       <h1>
-         <font color="#00FF00">M</font>
-         <font color="#FFFF00">U</font>
+         <font color="#0000FF">M</font>
+         <font color="#FF69B4">U</font>
          <font color="#707070">L</font>
-         <font color="#00FF00">T</font>
-         <font color="#FFFF00">I</font>
+         <font color="#0000FF">T</font>
+         <font color="#FF69B4">I</font>
          <font color="#FFFFFF">- Wordle</font>
       </h1>
+      <hr>
 
-      <p>
-         <label>Username : </label>
+   <div class="container">
+      <form id="login" class="form">
+       <div class="form-field">
+         <label for="username">Username : </label>
          <input
             type="text"
             placeholder="Enter Username"
             name="username"
+            id = "username"
+            autocomplete="off"
             required
-         />
-      </p>
+         >
+         <small></small>
+       </div>
 
-      <p>
-         <label>Password : </label>
+       <div class="form-field">
+         <label for="password">Password : </label>
          <input
             type="password"
             placeholder="Enter Password"
             name="password"
+            id = "password"
+            autocomplete="off"
             required
-         />
-      </p>
-
-      <section id="linkButton2">
-         <td style="text-align: right; vertical-align: top; padding: 0">
-            <a href="./options">Log in</a>
-         </td>
-      </section>
-
-      <section id="linkButton2">
-         <td style="text-align: right; vertical-align: top; padding: 0">
-            <a href="./options">Register</a>
-         </td>
-      </section>
-   </body>
+         >
+         <small></small>
+       </div>
+      
+      <div class = "form field">
+       <button id="linkButton2"> 
+         <input type="submit"  value="Log in">
+       </button>
+      </div>
+      
+   </form>
+</div>
+<script src="/public/scripts/login.js"></script>
+</body>
 </html>
