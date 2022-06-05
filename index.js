@@ -22,15 +22,15 @@ app.use('/public/scripts', express.static(__dirname + '/public/scripts'))
 app.use('/database', express.static(__dirname + '/database'))
 app.use('/routes', express.static(__dirname + '/routes'))
 
-app.post('/login',async (req,res) => {
+app.post('/',async (req,res) => {
    try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10) // standard default value
       users.push({
-         username: req.bady.username,
+         username: req.body.username,
          password: hashedPassword
       })
    } catch {
-      res.redict('/login')
+      res.redict('/')
 
    }
    console.log(users)

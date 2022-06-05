@@ -15,19 +15,22 @@
     "tedious": "^14.5.0"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "devStart": "nodemon index.js"
   },
   "devDependencies": {
-   "expect-playwright": "^0.8.0",
-   "jest": "^28.1.0",
-   "jest-playwright-preset": "^1.7.2",
-   "playwright": "^1.22.2"
-},
-"jest": {
-   "setupFilesAfterEnv": [
+    "dotenv": "^16.0.1",
+    "expect-playwright": "^0.8.0",
+    "jest": "^28.1.0",
+    "jest-playwright-preset": "^1.7.2",
+    "nodemon": "^2.0.16",
+    "playwright": "^1.22.2"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
       "expect-playwright"
-   ]
-},
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/witseie-elen4010/2022-group-lab-003.git"
