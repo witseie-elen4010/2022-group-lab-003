@@ -83,5 +83,14 @@ test('Unsuccessful login - password only three characters long', async () => {
    expect(await page.title()).toBe('Multi-Wordle Login Page')
 })
 
+test('Unsuccessful login - password only lowercase and uppercase letters, no numbers', async () => {
+   await page.goto('https://multi-wordle.azurewebsites.net')
+   await page.locator('id=username').fill('admin')
+   await page.locator('id=password').fill('abcDEFGH')
+   await page.click('#linkButton2')
+   await page.click('#linkButton2')
+   expect(await page.title()).toBe('Multi-Wordle Login Page')
+})
+
 })
 
