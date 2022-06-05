@@ -102,7 +102,6 @@ function changeKeyboardColour(letter, _colour) {
          const oldColour = window
             .getComputedStyle(elem)
             .getPropertyValue('background-color')
-         console.log(oldColour)
          if (oldColour === 'blue') {
             return
          }
