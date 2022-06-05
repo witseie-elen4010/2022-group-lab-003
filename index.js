@@ -33,7 +33,7 @@ app.post('/',async (req,res) => {
       res.redirect('/') //incase of a failure redirect back to main page i.e. login
 
    }
-   console.log(users) //check when added a user into the game
+   console.log(users.username) //check when added a user into the game
 })
 
 app.get('/database', function (req, res) { //when you go into /database it updates the database
@@ -46,6 +46,26 @@ app.get('/database', function (req, res) { //when you go into /database it updat
     .then((pool) => {
     return pool.request()
     .query(`INSERT INTO Login(username, password) VALUES('${user}','${pass}');`)
+    })
+    // Send back the result
+    .then(result => {
+    res.send(result)
+    })
+    // If there's an error, return that with some description
+    .catch(err => {
+    res.send({
+    Error: err
+    })
+    })
+ })
+ app.get('/database', function (req, res) { //when you go into /database it updates the database
+   
+   // Make a query to the database
+    db.pools
+    // Run query
+    .then((pool) => {
+    return pool.request()
+    .query(`SELECT * FROM [Login]`)
     })
     // Send back the result
     .then(result => {
