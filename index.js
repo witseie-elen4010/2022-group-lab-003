@@ -8,12 +8,7 @@ let users = []
 const loginValidator = require('./public/scripts/login.js')
 const db = require('./database/db.js')
 const LocalStorage = require('node-localstorage').LocalStorage, localStorage = new LocalStorage('./scratch');
-// retrieve word from localStorage
-let key = 'word'
-let n = '5'
-let keyN = key.concat(n)
-let word = JSON.parse(localStorage.getItem('word5'))
-console.log(word)
+
 app.use(mainRouter)
 // socket additions:
 const http = require('http')
@@ -43,10 +38,7 @@ app.post('/', async function (req, res) { //login to send data to the database t
     // Run query
     .then((pool) => {
     return pool.request() //multiple table query. Replace 'hello' with actual guess
-    .query(`BEGIN TRANSACTION
-            INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));
-            INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','test');
-            COMMIT`) 
+    .query(`INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));`) 
     })
     // redirect after login to the game
     .then(res.redirect('/options'))
@@ -61,6 +53,30 @@ app.post('/', async function (req, res) { //login to send data to the database t
    }
  })
 
+ app.get('/game', async function (req, res) { //login to send data to the database tables
+   // retrieve word from localStorage
+    let key = 'word'
+    let n = '5'
+    let keyN = key.concat(n)
+    let word = JSON.parse(localStorage.getItem('word5'))
+    console.log(word)
+   // Make a query to the database
+   db.pools
+   // Run query
+   .then((pool) => {
+   return pool.request() //multiple table query. Replace 'hello' with actual guess
+   .query(`SELECT 1`) 
+   })
+   // redirect after login to the game
+   .then(res.redirect('/options'))
+   // If there's an error, return that with some description
+   .catch(err => {
+   res.send({
+   Error: err
+   })
+   })
+  
+})
 
 module.exports = app
 

@@ -154,7 +154,7 @@ function checkInput() {
    const row = document.getElementsByClassName('row-part')[6 - tries]
    let inputString = ''
    const correctInput = Array.from(chosenWord)
-   console.log('chosen-word:',chosenWord) // tells the clietn side what the chosen word
+   //console.log('chosen-word:',chosenWord) // tells the clietn side what the chosen word
    
    for (const val of guess) {
       inputString += val
@@ -188,7 +188,7 @@ function checkInput() {
       let n = tries.toString()
       let keyN = key.concat(n)
       window.localStorage.setItem(keyN, JSON.stringify(inputString))
-      console.log(JSON.parse(window.localStorage.getItem(keyN)))
+      //console.log(JSON.parse(window.localStorage.getItem(keyN)))
       return
    }
 
@@ -200,7 +200,7 @@ function checkInput() {
       let n = tries.toString()
       let keyN = key.concat(n)
       window.localStorage.setItem(keyN, JSON.stringify(inputString))
-      console.log(JSON.parse(window.localStorage.getItem(keyN)))
+      //console.log(JSON.parse(window.localStorage.getItem(keyN)))
 
       tries = 0
    } else {
@@ -212,7 +212,7 @@ function checkInput() {
       let n = tries.toString()
       let keyN = key.concat(n)
       window.localStorage.setItem(keyN, JSON.stringify(inputString))
-      console.log(JSON.parse(window.localStorage.getItem(keyN)))
+      //console.log(JSON.parse(window.localStorage.getItem(keyN)))
 
       if (tries === 0) {
          alert('You lose. Guesses ran out.')
@@ -222,7 +222,7 @@ function checkInput() {
          let n = tries.toString()
          let keyN = key.concat(n)
          window.localStorage.setItem(keyN, JSON.stringify(inputString))
-         console.log(JSON.parse(window.localStorage.getItem(keyN)))
+         //console.log(JSON.parse(window.localStorage.getItem(keyN)))
          changeColour(row, correctInput)
       }
    }
