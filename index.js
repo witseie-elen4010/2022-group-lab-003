@@ -27,13 +27,13 @@ app.post('/', async function (req, res) { //login to send data to the database t
    let pass = req.body.password
    
    // retrieve word from sessionStorage
-   let word = sessionStorage.getItem('word')
+   let word = JSON.parse(sessionStorage.getItem('word'))
 
    // Make a query to the database
     db.pools
     // Run query
     .then((pool) => {
-    return pool.request() //multiple table query. Replace 'hello' with actual guess
+    return pool.request() //multiple table query.
     .query(`BEGIN TRANSACTION
             INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));
             INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','${word}');
