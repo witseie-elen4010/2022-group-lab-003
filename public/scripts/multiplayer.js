@@ -356,6 +356,8 @@ function checkInput() {
     nextLetter = 0
     
     if (tries === 0) {
+      changeColour(row, correctInput)
+      socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
       alert('You lose. Guesses ran out.')
       alert(`Correct word: "${chosenWord}"`)
       infoDisplay.innerHTML = 'You Lose!'
