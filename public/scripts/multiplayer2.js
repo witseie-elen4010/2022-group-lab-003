@@ -171,8 +171,10 @@ socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
     console.log(`Player ${playerNum} is the winner`)
     // Alerting other players that they lost 
     console.log(currentPlayer)
-  
-    
+    if (currentPlayer === 'opponent2' || currentPlayer === 'opponent3'){
+      infoDisplay.innerHTML = 'You Lose!'
+      alert('You Lose!')
+}
   })
 
 
