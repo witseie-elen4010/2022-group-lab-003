@@ -44,7 +44,7 @@ document.addEventListener('keyup', (event) => {
 
    if (keyInput === 'Enter') {
       checkInput()
-      return
+      return 
    }
 
    let found = keyInput.match(/[a-z]/gi)
@@ -154,7 +154,7 @@ function checkInput() {
    const row = document.getElementsByClassName('row-part')[6 - tries]
    let inputString = ''
    const correctInput = Array.from(chosenWord)
-
+   
    for (const val of guess) {
       inputString += val
    }
@@ -182,22 +182,42 @@ function checkInput() {
       tries -= 1
       guess = []
       nextLetter = 0
-
+      //to store user input
+      let key = 'word'
+      let n = tries.toString()
+      let keyN = key.concat(n)
+      window.localStorage.setItem(keyN, JSON.stringify(inputString))
       return
    }
 
    if (inputString === chosenWord) {
       alert('Correct! You win!')
       changeColour(row, correctInput)
+      //to store user input
+      let key = 'word'
+      let n = tries.toString()
+      let keyN = key.concat(n)
+      window.localStorage.setItem(keyN, JSON.stringify(inputString))
+
       tries = 0
    } else {
       tries -= 1
       guess = []
       nextLetter = 0
+      //to store user input
+      let key = 'word'
+      let n = tries.toString()
+      let keyN = key.concat(n)
+      window.localStorage.setItem(keyN, JSON.stringify(inputString))
 
       if (tries === 0) {
          alert('You lose. Guesses ran out.')
          alert(`Correct word: "${chosenWord}"`)
+         //to store user input
+         let key = 'word'
+         let n = tries.toString()
+         let keyN = key.concat(n)
+         window.localStorage.setItem(keyN, JSON.stringify(inputString))
          changeColour(row, correctInput)
       }
    }
