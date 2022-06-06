@@ -7,8 +7,13 @@ const mainRouter = require('./routes/mainRoutes')
 //let users = []
 const bcrypt = require('bcrypt')
 const db = require('./database/db.js')
-const sessionStorage = require('sessionstorage')
-
+const LocalStorage = require('node-localstorage').LocalStorage, localStorage = new LocalStorage('./scratch');
+// retrieve word from localStorage
+let key = 'word'
+let n = '5'
+let keyN = key.concat(n)
+let word = JSON.parse(localStorage.getItem('word5'))
+console.log(word)
 app.use(mainRouter)
 
 var bodyParser = require('body-parser')
@@ -36,7 +41,7 @@ app.post('/', async function (req, res) { //login to send data to the database t
     return pool.request() //multiple table query.
     .query(`BEGIN TRANSACTION
             INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));
-            INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','${word}');
+            INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','test');
             COMMIT`) 
     })
     // redirect after login to the game
@@ -49,6 +54,7 @@ app.post('/', async function (req, res) { //login to send data to the database t
     })
    
  })
+
 
 module.exports = app
 
