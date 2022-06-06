@@ -212,4 +212,27 @@ button{
    width: 230px;
    border: 2px solid mediumvioletred;
    padding: 20px;
+
  }
+
+ .connected {
+    font-weight: normal;
+ }
+ .connected span {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background: red;
+ }
+ span.green {
+   background: green;
+ }
+
+ #returnButton {
+   background-color: palevioletred; 
+   color: black;
+   padding: 4px 10px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+}

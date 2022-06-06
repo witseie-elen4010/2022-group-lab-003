@@ -11,18 +11,19 @@
         </section>
 
         <section id="linkButton">
-            <td style="text-align:right;vertical-align:top;padding:0">&#8505 <a href="./instructions">Instructions</a></td>
+            <td style="text-align:right;vertical-align:top;padding:0">&#8505 <a href="./instructions">View Instructions</a></td>
         </section>
-        
+
         <section id="linkButton">
-            <td style="text-align:right;vertical-align:top;padding:0">&#9881 <a href="./options">Options</a></td>
+          <td style="text-align:right;vertical-align:top;padding:0">&#9881 <a href="./options">Options</a></td>
         </section>
-        
+
         <section id="linkButton">
-            <td style="text-align:right;vertical-align:top;padding:0">&#9899 <a href="./">Login</a></td>
+          <td style="text-align:right;vertical-align:top;padding:0">&#9899 <a href="./">Login</a></td>
         </section>
 
       <link rel="stylesheet" href="/public/stylesheets/style.css">
+      <script src = "/socket.io/socket.io.js"></script>
       <!-- Bootstrap -->
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
@@ -42,16 +43,44 @@
    </h1> 
    <hr>
    <p>
-      Enter a five letter word and we will tell you if you have guessed it correctly!
+      You are playing in multiplayer mode.
    </p>
 
-   
-  <div id="wordle-board">
-   
+   <h3 id="info"></h3>
+   <div class="wordle-container">
+
+    <div class="player p0">
+      <div id="wordle-board1">
+      </div>
+      Player 1
+      <div class="connected">Connected <span></span></div>
+    </div>
+    
+    <div class="player p1">
+      
+      <div id = "wordle-board2">
+      </div>
+      Player 2
+      <div class="connected">Connected <span></span></div>
+    </div>
+
+    <div class="player p2">
+  
+      <div id = "wordle-board3">
+      </div>
+      Player 3
+      <div class="connected">Connected <span></span></div>
+    </div>
+    
+    <script src="/public/scripts/multiplayer.js" type="module"></script>
   </div>
+
+
     <br>
-         
-  <div id="keyboard">
+    <div class="key-container">
+
+      <div class="box">
+        <div id="keyboard">
         <div class="first-row">
             <button class="keyboard-button">q</button>
             <button class="keyboard-button">w</button>
@@ -87,6 +116,10 @@
             <button class="keyboard-button">Enter</button>
         </div>
     </div>
-    <script src="/public/scripts/main.js" type="module"></script>
+        </div>
+      </div>
+    </div>  
+  
+
 </body>
 </html>
