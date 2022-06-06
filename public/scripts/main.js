@@ -110,7 +110,6 @@ function changeKeyboardColour(letter, _colour) {
          const oldColour = window
             .getComputedStyle(elem)
             .getPropertyValue('background-color')
-         console.log(oldColour)
          if (oldColour === 'blue') {
             return
          }
@@ -224,6 +223,7 @@ function checkInput() {
          let keyN = key.concat(n)
          window.localStorage.setItem(keyN, JSON.stringify(inputString))
          console.log(JSON.parse(window.localStorage.getItem(keyN)))
+         changeColour(row, correctInput)
       }
    }
 }
