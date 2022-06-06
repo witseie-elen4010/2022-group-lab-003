@@ -6,7 +6,9 @@ const express = require('express')
 const app = express()
 const mainRouter = require('./routes/mainRoutes')
 let users = []
+
 const db = require('./database/db.js')
+
 app.use(mainRouter)
 // socket additions:
 const http = require('http')
@@ -19,36 +21,35 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use('/', mainRouter)
-app.use(
-  '/public/stylesheets',
-  express.static(__dirname + '/public/stylesheets')
-) // sets the static folders that the server serves to the client
-app.use('/public/scripts', express.static(__dirname + '/public/scripts')) // scripts hold all game files
+
+app.use('/public/stylesheets',express.static(__dirname + '/public/stylesheets'))
+app.use('/public/scripts', express.static(__dirname + '/public/scripts'))
 app.use('/database', express.static(__dirname + '/database'))
-app.use('/routes', express.static(__dirname + '/routes')) // folder holds routes to html files viewed by the client
+app.use('/routes', express.static(__dirname + '/routes'))
 
 app.post('/', async function (req, res) { //login to send data to the database tables
    
-  let user = req.body.username
-  let pass = req.body.password
-  
-  // Make a query to the database
-   db.pools
-   // Run query
-   .then((pool) => {
-   return pool.request()
-   .query(`INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));`) //database stores the hashed password
-   })
-   // redirect after login to the game
-   .then(res.redirect('/options'))
-   // If there's an error, return that with some description
-   .catch(err => {
-   res.send({
-   Error: err
-   })
-   })
-  
-})
+   let user = req.body.username
+   let pass = req.body.password
+   
+   // Make a query to the database
+    db.pools
+    // Run query
+    .then((pool) => {
+    return pool.request()
+    .query(`INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));`) //database stores the hashed password
+    })
+    // redirect after login to the game
+    .then(res.redirect('/options'))
+    // If there's an error, return that with some description
+    .catch(err => {
+    res.send({
+    Error: err
+    })
+    })
+   
+ })
+
 
 module.exports = app
 

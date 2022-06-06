@@ -212,6 +212,7 @@ button{
    width: 230px;
    border: 2px solid mediumvioletred;
    padding: 20px;
+
  }
 
  .connected {
@@ -226,3 +227,4 @@ button{
  span.green {
    background: green;
  }
+

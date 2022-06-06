@@ -6,16 +6,22 @@
   "author": "group-003",
   "license": "ISC",
   "dependencies": {
-    "express": "4.18.1",
-    "live-server": "^1.2.2",
-    "mssql": "8.1.2",
-    "socket.io": "^4.5.1"
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "live-server": "^1.1.0",
+    "mssql": "^8.1.2",
+    "socket.io": "^4.5.1",
+    "sqlite3": "^5.0.8",
+    "tedious": "^14.5.0"
   },
   "devDependencies": {
-   "expect-playwright": "^0.8.0",
-   "jest": "^28.1.0",
-   "jest-playwright-preset": "^1.7.2",
-   "playwright": "^1.22.2"
+   "dotenv": "^16.0.1",
+    "expect-playwright": "^0.8.0",
+    "jest": "^28.1.0",
+    "jest-playwright-preset": "^1.7.2",
+    "nodemon": "^2.0.16",
+    "playwright": "^1.22.2"
 },
 "jest": {
    "setupFilesAfterEnv": [
@@ -26,6 +32,7 @@
     "test": "jest --coverage",
     "start": "node index",
     "dev": "nodemon index"
+    
   },
   "repository": {
     "type": "git",
@@ -34,5 +41,8 @@
   "bugs": {
     "url": "https://github.com/witseie-elen4010/2022-group-lab-003/issues"
   },
-  "homepage": "https://github.com/witseie-elen4010/2022-group-lab-003#readme"
+
+  "homepage": "https://github.com/witseie-elen4010/2022-group-lab-003#readme",
+  "keywords": []
+
 }

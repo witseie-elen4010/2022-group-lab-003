@@ -1,0 +1,6 @@
+CREATE TABLE UserLogin (
+  ID int NOT NULL IDENTITY(1,1),
+  USERNAME nchar(50) NOT NULL,
+  PASSWORD varbinary(50),
+  PRIMARY KEY (ID)
+);
