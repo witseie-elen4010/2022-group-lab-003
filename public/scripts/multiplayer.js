@@ -18,6 +18,7 @@ const multiplayerButton = document.querySelector('#linkButton2')
 let playerNum = 0 // assume player 0 until told otherwise
 let currentPlayer = 'opponent1'
 
+// Creating board where player enters their inputs
 function createWordleBoard1 () {
   const board = document.getElementById('wordle-board1')
   // the board creation is the same as how a 2d array is created (nested-for loop).
@@ -38,10 +39,11 @@ function createWordleBoard1 () {
 }
 createWordleBoard1()
 
+// Creating the boards of the opponents
 function createWordleBoard2 ( recieveNum, recieveCol) {
   const board = document.getElementById('wordle-board2')
   if(recieveNum === 1|| recieveNum === 0 || recieveNum === 2) {
-    console.log('draw board 2')
+  
       const row = document.createElement('div')
       row.className = 'row-part2'
       for (let j = 0; j < 5; j++) {
@@ -61,7 +63,6 @@ function createWordleBoard2 ( recieveNum, recieveCol) {
 function createWordleBoard3 ( recieveNum, recieveCol) {
   const board = document.getElementById('wordle-board3')
   if(recieveNum === 1|| recieveNum === 2) {
-    console.log('draw board 3')
       const row = document.createElement('div')
       row.className = 'row-part3'
       for (let j = 0; j < 5; j++) {
@@ -78,9 +79,9 @@ function createWordleBoard3 ( recieveNum, recieveCol) {
 }
 }
 
+// Functions for ensuring correct opponent boards are displayed on different pages
 function creatingOppBoards(recieveNum ,recieveCol , currentPlayer) {
-  console.log('in opp board')
-  console.log(recieveNum)
+  
   if (currentPlayer === 'opponent1')
   {
     if(recieveNum === 1) {
@@ -114,10 +115,6 @@ function creatingOppBoards(recieveNum ,recieveCol , currentPlayer) {
 }
 
 
-
-
-
-
 const socket = io()
 
 // get player number
@@ -131,7 +128,7 @@ socket.on('player-number', num => {
     } else if (playerNum === 2) {
       currentPlayer = 'opponent3'
     }
-    console.log(playerNum)
+    
     // other players present
     socket.emit('check-players')
   }
@@ -140,29 +137,28 @@ socket.on('player-number', num => {
 // another player has connected or disconnected
 socket.on('player-connection', num => {
   playerConnectedOrDisconnected(num)
-  console.log(`Player number ${num} has connected/disconnected`)
 })
 
 // listening for opponents inputs 
 socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
-  console.log('i am listening')
   recieveNum = playerNum1
   recieveCol = colourArray1
-  console.log(recieveNum,recieveCol)
+  
   const delay = 250 * 5
   setTimeout(() => {
-    console.log(currentPlayer)
+   // Drawing opponents boards
     creatingOppBoards(recieveNum,recieveCol, currentPlayer)
-
   }, delay)
 
   // recieving winner message 
   socket.on('Winner', playerNum => {
     console.log(`Player ${playerNum} is the winner`)
+    // Alerting other players that they lost 
+    infoDisplay.innerHTML = 'You Lose!'
+    alert('You Lose!')
   })
 
-  
- // createWordleBoard2(recieveNum, recieveCol)
+
 })
 
 function playerConnectedOrDisconnected (num) { // looking for the class in html file
@@ -174,7 +170,6 @@ function playerConnectedOrDisconnected (num) { // looking for the class in html 
 
 document.getElementById('keyboard').addEventListener('click', (event) => {
 
-  
   if (tries === 0) {
     return
   }
@@ -259,7 +254,6 @@ function shadeKeyBoard (letter, _colour) {
 }
 
 function changeColour (row, correctInput) {
-  console.log('in change colour')
   colourArray = []
   for (let i = 0; i < 5; i++) {
     let letterColour = ''
@@ -297,12 +291,10 @@ function changeColour (row, correctInput) {
 }
 
 function checkInput () {
-  console.log('checkinput')
+ 
   const row = document.getElementsByClassName('row-part1')[6 - tries]
   let inputString = ''
   const correctInput = Array.from(chosenWord)
- console.log('chosen word')
- console.log(chosenWord)
   for (const val of guess) {
     inputString += val
   }
@@ -347,7 +339,6 @@ function checkInput () {
     alert('Correct! You win!')
     changeColour(row, correctInput)
     socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
-    console.log("after change colour")
     socket.emit('CheckWinner', playerNum)
     
 
@@ -360,6 +351,7 @@ function checkInput () {
     if (tries === 0) {
       alert('You lose. Guesses ran out.')
       alert(`Correct word: "${chosenWord}"`)
+      infoDisplay.innerHTML = 'You Lose!'
     }
   }
    
