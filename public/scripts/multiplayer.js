@@ -180,7 +180,7 @@ document.addEventListener('keyup', (event) => {
   }
 
   if (keyInput === 'Enter') {
-     checkInput()
+    checkInput()
      return
   }
 
@@ -241,22 +241,25 @@ function deleteLetter () {
   nextLetter -= 1
 }
 
-function shadeKeyBoard (letter, _colour) {
-  for (const elem of document.getElementsByClassName('keyboard-button')) {
-    if (elem.textContent === letter) {
-      const oldColour = elem.style.backgroundColour
-      if (oldColour === 'green') {
-        return
-      }
+function changeKeyboardColour(letter, _colour) {
+  for (let elem of document.getElementsByClassName('keyboard-button')) {
+     if (elem.textContent === letter) {
+        const oldColour = window
+           .getComputedStyle(elem)
+           .getPropertyValue('background-color')
+      
+        if (oldColour === 'blue') {
+           return
+        }
 
-      if (oldColour === 'yellow' && _colour !== 'green') {
-        return
+        if (oldColour === 'pink' && _colour !== 'blue') {
+           return
+        }
+        elem.style.background = _colour
+        break
       }
-      elem.style.backgroundColour = _colour
-      break
+     }
     }
-  }
-}
 
 function changeColour (row, correctInput) {
   colourArray = []
@@ -273,10 +276,10 @@ function changeColour (row, correctInput) {
       colourArray.push(letterColour)
     } else {
       if (guess[i] === correctInput[i]) {
-        letterColour = 'green'
+        letterColour = 'blue'
         colourArray.push(letterColour)
       } else {
-        letterColour = 'yellow'
+        letterColour = 'pink'
         colourArray.push(letterColour)
       }
       
@@ -286,16 +289,15 @@ function changeColour (row, correctInput) {
     const delay = 250 * i
     setTimeout(() => {
       box.style.backgroundColor = letterColour
-      shadeKeyBoard(letter, letterColour)
+      changeKeyboardColour(letter, letterColour)
     }, delay)
-    
   }
 
   return colourArray
   
 }
 
-function checkInput () {
+function checkInput() {
  
   const row = document.getElementsByClassName('row-part1')[6 - tries]
   let inputString = ''
