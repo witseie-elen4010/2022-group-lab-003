@@ -4,9 +4,9 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const mainRouter = require('./routes/mainRoutes')
-let users = []
 const loginValidator = require('./public/scripts/login.js')
 const db = require('./database/db.js')
+// for sending word to database
 const LocalStorage = require('node-localstorage').LocalStorage, localStorage = new LocalStorage('./scratch');
 
 app.use(mainRouter)
@@ -36,8 +36,11 @@ app.post('/', async function (req, res) {
     db.pools
     // Run query
     .then((pool) => {
-    return pool.request() //multiple table query. Replace 'hello' with actual guess
-    .query(`INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));`) 
+    return pool.request() //multiple table query. 
+    .query(`BEGIN TRANSACTION
+            INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));
+            INSERT INTO GameLogDetails(USERNAME, INPUT_WORD) VALUES('${user}' , 'word')
+            COMMIT`) 
     })
     // redirect after login to the game
     .then(res.redirect('/options'))
