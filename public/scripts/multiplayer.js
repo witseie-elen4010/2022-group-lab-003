@@ -114,10 +114,6 @@ function creatingOppBoards(recieveNum ,recieveCol , currentPlayer) {
 }
 
 
-
-
-
-
 const socket = io()
 
 // get player number
@@ -159,6 +155,9 @@ socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
   // recieving winner message 
   socket.on('Winner', playerNum => {
     console.log(`Player ${playerNum} is the winner`)
+    infoDisplay.innerHTML = 'You Lose!'
+    alert('You Lose!')
+
   })
 
   
