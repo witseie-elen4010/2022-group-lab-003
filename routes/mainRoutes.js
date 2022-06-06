@@ -28,6 +28,8 @@ mainRouter.get('/instructions', paths.instructions)
 
 mainRouter.get('/multiplayer', paths.multi)
 
+mainRouter.get('/multiplayer2', paths.multi2)
+
 
 
 

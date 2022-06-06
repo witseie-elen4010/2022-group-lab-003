@@ -11,6 +11,8 @@
     "express": "^4.18.1",
     "live-server": "^1.1.0",
     "mssql": "^8.1.2",
+    "node-localstorage": "^2.2.1",
+    "sessionstorage": "^0.0.2",
     "socket.io": "^4.5.1",
     "sqlite3": "^5.0.8",
     "tedious": "^14.5.0"

@@ -1,13 +1,13 @@
 'use strict'
-// For routes and azure setup
 
 const path = require('path')
 const express = require('express')
 const app = express()
 const mainRouter = require('./routes/mainRoutes')
-let users = []
 const loginValidator = require('./public/scripts/login.js')
 const db = require('./database/db.js')
+// for sending word to database
+const LocalStorage = require('node-localstorage').LocalStorage, localStorage = new LocalStorage('./scratch');
 
 app.use(mainRouter)
 // socket additions:
@@ -27,18 +27,20 @@ app.use('/public/scripts', express.static(__dirname + '/public/scripts'))
 app.use('/database', express.static(__dirname + '/database'))
 app.use('/routes', express.static(__dirname + '/routes'))
 
-app.post('/', async function (req, res) { //login to send data to the database tables
-   
+app.post('/', async function (req, res) { 
+   //login to send data to the database tables
    let user = req.body.username
    let pass = req.body.password
    if((loginValidator.usernameFunc(user)&&loginValidator.passwordFunc(pass))===true){
-     // console.log('YES') //debugging
     // Make a query to the database
     db.pools
     // Run query
     .then((pool) => {
-    return pool.request()
-    .query(`INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));`) //database stores the hashed password
+    return pool.request() //multiple table query. 
+    .query(`BEGIN TRANSACTION
+            INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));
+            INSERT INTO GameLogDetails(USERNAME, INPUT_WORD) VALUES('${user}' , 'word')
+            COMMIT`) 
     })
     // redirect after login to the game
     .then(res.redirect('/options'))
@@ -52,7 +54,6 @@ app.post('/', async function (req, res) { //login to send data to the database t
     console.error('Invalid username and password')
    }
  })
-
 
 module.exports = app
 
@@ -82,8 +83,6 @@ io.on('connection', socket => { // socket is the client connected
     return
   }
 
-
-
   // ignore more than 3 players entering the multi player mode
 
   connections[playerIndex] = true
@@ -108,6 +107,11 @@ io.on('connection', socket => { // socket is the client connected
         : players.push({ connected: true })
     }
     socket.emit('check-players', players)
+  })
+
+  socket.on('ChosenWord', inputWord=> {
+    console.log(inputWord)
+    socket.broadcast.emit('NewWord', inputWord)
   })
 
   // recieving colour array of each player
