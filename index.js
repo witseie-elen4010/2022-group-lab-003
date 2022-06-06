@@ -6,7 +6,7 @@ const express = require('express')
 const app = express()
 const mainRouter = require('./routes/mainRoutes')
 let users = []
-
+const loginValidator = require('./public/scripts/login.js')
 const db = require('./database/db.js')
 
 app.use(mainRouter)
@@ -31,8 +31,9 @@ app.post('/', async function (req, res) { //login to send data to the database t
    
    let user = req.body.username
    let pass = req.body.password
-   
-   // Make a query to the database
+   if((loginValidator.usernameFunc(user)&&loginValidator.passwordFunc(pass))===true){
+     // console.log('YES') //debugging
+    // Make a query to the database
     db.pools
     // Run query
     .then((pool) => {
@@ -47,7 +48,9 @@ app.post('/', async function (req, res) { //login to send data to the database t
     Error: err
     })
     })
-   
+   } else{
+    console.error('Invalid username and password')
+   }
  })
 
 

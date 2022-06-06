@@ -1,6 +1,11 @@
 'use strict'
+/* eslint-env jest */
+/**
+ * @jest-environment jsdom
+ */
 
 const { firefox } = require('playwright')
+const loginValidator = require('../public/scripts/login.js')
 let browser
 let page
 
@@ -38,76 +43,58 @@ describe('Login page heading tests for Login, Options and Game pages', () => {
 })
 
 describe('Login requirements', () => {
-   test('Successful login - password has eight charaters', async () => {
-       await page.goto('https://multi-wordle.azurewebsites.net')
-       await page.locator('id=username').fill('admin')
-       await page.locator('id=password').fill('1Abcdefg')
-       await page.click('#linkButton2')
-       await page.click('#linkButton2')
-       expect(await page.title()).toBe('Options Page')
+   test('Unsuccessful login - password has eight charaters, no numbers and is all lowercase', async () => {
+       const testPassword = 'testingthelength'
+       var result = loginValidator.passwordSecFunc(testPassword)
+       expect(result).toBe(false)
    })
 
-   test('Successful login - password has more than eight letters and one number', async () => {
-      await page.goto('https://multi-wordle.azurewebsites.net')
-      await page.locator('id=username').fill('admin')
-      await page.locator('id=password').fill('abcDEF1GHIjkl')
-      await page.click('#linkButton2')
-      await page.click('#linkButton2')
-      expect(await page.title()).toBe('Options Page')
+   test('Successful login - password has more than eight letters, at least one number, at least one upper case and at least one lower case', async () => {
+       const testPassword = 'testingThe1'
+       var result = loginValidator.passwordSecFunc(testPassword)
+       expect(result).toBe(true)
   })
 
   test('Successful login - password has more than eight letters and more than one number', async () => {
-   await page.goto('https://multi-wordle.azurewebsites.net')
-   await page.locator('id=username').fill('admin')
-   await page.locator('id=password').fill('12abcDEF1GHIjkl34')
-   await page.click('#linkButton2')
-   await page.click('#linkButton2')
-   expect(await page.title()).toBe('Options Page')
+       const testPassword = 'Testing123'
+       var result = loginValidator.passwordSecFunc(testPassword)
+       expect(result).toBe(true)
 })
 
 test('Unsuccessful login - username too short', async () => {
-   await page.goto('https://multi-wordle.azurewebsites.net')
-   await page.locator('id=username').fill('a')
-   await page.locator('id=password').fill('1Abcdefg')
-   await page.click('#linkButton2')
-   await page.click('#linkButton2')
-   expect(await page.title()).toBe('Multi-Wordle Login Page')
+       const testUsername = 's'
+       var result = loginValidator.correctLengthFunc(testUsername,3,30) //length must be between 3 and 30 characters long
+       expect(result).toBe(false)
 })
 
 test('Unsuccessful login - username too long', async () => {
-   await page.goto('https://multi-wordle.azurewebsites.net')
-   await page.locator('id=username').fill('aadminadminadminadmin12345%$@!*')
-   await page.locator('id=password').fill('1Abcdefg')
-   await page.click('#linkButton2')
-   await page.click('#linkButton2')
-   expect(await page.title()).toBe('Multi-Wordle Login Page')
+      const testUsername = 'thisisalongusernamethatiswaytoolongtoenter'
+       var result = loginValidator.correctLengthFunc(testUsername,3,30) //length must be between 3 and 30 characters long
+       expect(result).toBe(false)
 })
 
-test('Unsuccessful login - password only three characters long', async () => {
-   await page.goto('https://multi-wordle.azurewebsites.net')
-   await page.locator('id=username').fill('admin')
-   await page.locator('id=password').fill('ab1')
-   await page.click('#linkButton2')
-   await page.click('#linkButton2')
-   expect(await page.title()).toBe('Multi-Wordle Login Page')
+test('Successful login - username is valid length and not empty', async () => {
+       const testUsername = 'UsernameNew'
+       var result = loginValidator.usernameFunc(testUsername) //length must be between 3 and 30 characters long
+       expect(result).toBe(true)
 })
 
 test('Unsuccessful login - password only lowercase and uppercase letters, no numbers', async () => {
-   await page.goto('https://multi-wordle.azurewebsites.net')
-   await page.locator('id=username').fill('admin')
-   await page.locator('id=password').fill('abcDEFGH')
-   await page.click('#linkButton2')
-   await page.click('#linkButton2')
-   expect(await page.title()).toBe('Multi-Wordle Login Page')
+       const testPassword = 'testingthePASSWORD'
+       var result = loginValidator.passwordSecFunc(testPassword)
+       expect(result).toBe(false)
 })
 
 test('Unsuccessful login - password too short', async () => {
-   await page.goto('https://multi-wordle.azurewebsites.net')
-   await page.locator('id=username').fill('admin')
-   await page.locator('id=password').fill('abcDEF1')
-   await page.click('#linkButton2')
-   await page.click('#linkButton2')
-   expect(await page.title()).toBe('Multi-Wordle Login Page')
+       const testPassword = 'test'
+       var result = loginValidator.passwordSecFunc(testPassword)
+       expect(result).toBe(false)
+})
+
+test('Unsuccessful login - password is empty', async () => {
+   const testPassword = ''
+   var result = loginValidator.passwordFunc(testPassword)
+   expect(result).toBe(false)
 })
 
 })
