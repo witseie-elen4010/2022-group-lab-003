@@ -9,7 +9,6 @@ let guess = [] // contains the word that the player guesses
 let nextLetter = 0 // keeps track of which letter we are on
 let chosenWord = ''
 
-const startButton = document.querySelector('#StartButton')
 const infoDisplay = document.querySelector('#info')
 let playerNum = -1 // assume player 0 until told otherwise
 let currentPlayer = 'opponent1'
@@ -139,6 +138,17 @@ setTimeout(() => {
      
     }
 }, delay)
+
+socket.on('NewWord', chosenWord2 => {
+  console.log('recieved broadcast word')
+  console.log(chosenWord2)
+  chosenWord = chosenWord2
+  if (playerNum > 0){
+      createWordleBoard1()
+  }
+  
+  
+  })
 
 // another player has connected or disconnected
 socket.on('player-connection', num => {
