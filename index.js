@@ -53,30 +53,30 @@ app.post('/', async function (req, res) { //login to send data to the database t
    }
  })
 
- app.get('/game', async function (req, res) { //login to send data to the database tables
-   // retrieve word from localStorage
-    let key = 'word'
-    let n = '5'
-    let keyN = key.concat(n)
-    let word = JSON.parse(localStorage.getItem('word5'))
-    console.log(word)
-   // Make a query to the database
-   db.pools
-   // Run query
-   .then((pool) => {
-   return pool.request() //multiple table query. Replace 'hello' with actual guess
-   .query(`SELECT 1`) 
-   })
-   // redirect after login to the game
-   .then(res.redirect('/options'))
-   // If there's an error, return that with some description
-   .catch(err => {
-   res.send({
-   Error: err
-   })
-   })
+//  app.get('/game', async function (req, res) { //login to send data to the database tables
+//    // retrieve word from localStorage
+//     let key = 'word'
+//     let n = '5'
+//     let keyN = key.concat(n)
+//     let word = JSON.parse(localStorage.getItem('word5'))
+//     console.log(word)
+//    // Make a query to the database
+//    db.pools
+//    // Run query
+//    .then((pool) => {
+//    return pool.request() //multiple table query. Replace 'hello' with actual guess
+//    .query(`SELECT 1`) 
+//    })
+//    // redirect after login to the game
+//    .then(res.redirect('/options'))
+//    // If there's an error, return that with some description
+//    .catch(err => {
+//    res.send({
+//    Error: err
+//    })
+//    })
   
-})
+// })
 
 module.exports = app
 
