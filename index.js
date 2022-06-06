@@ -3,10 +3,6 @@
 
 //import { getInput } from './public/scripts/main.js'
 
-// $.getScript('/public/scripts/main.js' , function () {
-//         getInput()
-// })
-
 const path = require('path')
 const express = require('express')
 const app = express()
@@ -14,7 +10,7 @@ const mainRouter = require('./routes/mainRoutes')
 let users = []
 const bcrypt = require('bcrypt')
 const db = require('./database/db.js')
-//const main = require('./public/scripts/main.js')
+const sessionStorage = require('sessionstorage')
 
 app.use(mainRouter)
 
@@ -33,9 +29,9 @@ app.post('/', async function (req, res) { //login to send data to the database t
    let user = req.body.username
    let pass = req.body.password
    
-   // retrieve word from local storage
-   //let main = window.location.href('/public/scripts/main.js')
-   let word = 'hello'
+   // retrieve word from sessionStorage
+   let word = sessionStorage.getItem('word')
+   
 
    // Make a query to the database
     db.pools
