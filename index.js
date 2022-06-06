@@ -110,6 +110,11 @@ io.on('connection', socket => { // socket is the client connected
     socket.emit('check-players', players)
   })
 
+  socket.on('ChosenWord', inputWord=> {
+    console.log(inputWord)
+    socket.broadcast.emit('NewWord', inputWord)
+  })
+
   // recieving colour array of each player
   socket.on('IdentifyingPlayer', ({ playerNum, colourArray }) => {
     let playerNum1 = playerNum
