@@ -86,6 +86,10 @@ function insertLetter(input) {
    square.classList.add('column-piece') // adding current letter to guess
    guess.push(input) // adds 1 to number of letters in row
    nextLetter += 1
+   
+   //using sessionStorage to store user input
+   sessionStorage.setItem('word', `${guess}`)
+  // console.log(sessionStorage.getItem('word'))
 }
 
 function deleteLetter() {
@@ -203,3 +207,7 @@ function checkInput() {
       }
    }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a20c2f60c2e6f68c68886f2b35cfb444e1c23cec
