@@ -30,4 +30,8 @@ function multiplayer(req, res) {
    res.sendFile(path.join(__dirname, '..', 'views', 'multiplayer.html'))
 }
 
-module.exports = { multi: multiplayer, game: game, about: about, instructions: instructions, options: options }
+function multiplayer2(req, res) {
+   res.sendFile(path.join(__dirname, '..', 'views', 'multiplayer2.html'))
+}
+
+module.exports = { multi: multiplayer, game: game, about: about, instructions: instructions, options: options, multi2: multiplayer2}
