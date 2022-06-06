@@ -1,5 +1,6 @@
 'use strict'
-
+import { wordList } from './Wordlist.js'
+const len = wordList.length
 let colourArray = []
 let recieveNum = -1
 let recieveCol = []
@@ -330,8 +331,18 @@ function checkInput() {
     return
   }
 
+  if (
+    !wordList.includes(inputString) &&
+    inputString !== chosenWord &&
+    tries > 1
+  ) {
+    alert('Invalid: the word is not on the list')
+
+    return
+  }
 
   if (
+    wordList.includes(inputString) &&
     inputString !== chosenWord &&
     tries > 1
   ) {
