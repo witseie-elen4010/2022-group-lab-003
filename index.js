@@ -79,7 +79,7 @@ io.on('connection', socket => { // socket is the client connected
     return
   }
 
-  console.log(`Player ${parseInt(playerIndex)} has connected`)
+
 
   // ignore more than 3 players entering the multi player mode
 
@@ -90,7 +90,6 @@ io.on('connection', socket => { // socket is the client connected
 
   // handle disconnections
   socket.on('disconnect', () => {
-    console.log(`Player ${playerIndex} has disconnected`)
     connections[playerIndex] = null
 
     // tell everyone what player number just disconnected
@@ -112,21 +111,11 @@ io.on('connection', socket => { // socket is the client connected
   socket.on('IdentifyingPlayer', ({ playerNum, colourArray }) => {
     let playerNum1 = playerNum
     let colourArray1 = colourArray
-    
-    console.log(colourArray1[1])
     socket.broadcast.emit('IdentifyingPlayerColours', ({ playerNum1, colourArray1}))
-    console.log("sent broadcast")
-    console.log(playerNum1)
   })
 
   socket.on('CheckWinner', playerNum => {
-    console.log(`Player ${playerNum} is the winner`)
+
     socket.broadcast.emit('Winner', playerNum)
   })
-    
-
- 
-  //socket.broadcast.emit('IdentifyingPlayerColours', playerNum2, colourArray)
-  //console.log("sent broadcast")
-
 })
