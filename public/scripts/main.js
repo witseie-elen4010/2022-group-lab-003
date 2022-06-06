@@ -207,7 +207,3 @@ function checkInput() {
       }
    }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> a20c2f60c2e6f68c68886f2b35cfb444e1c23cec
