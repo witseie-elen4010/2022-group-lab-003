@@ -86,10 +86,7 @@ function insertLetter(input) {
    square.classList.add('column-piece') // adding current letter to guess
    guess.push(input) // adds 1 to number of letters in row
    nextLetter += 1
-   
-   //using sessionStorage to store user input
-   sessionStorage.setItem('word', `${guess}`)
-  console.log(sessionStorage.getItem('word'))
+
 }
 
 function deleteLetter() {
@@ -188,22 +185,46 @@ function checkInput() {
       tries -= 1
       guess = []
       nextLetter = 0
-
+      //to store user input
+      let key = 'word'
+      let n = tries.toString()
+      let keyN = key.concat(n)
+      window.localStorage.setItem(keyN, JSON.stringify(inputString))
+      console.log(JSON.parse(window.localStorage.getItem(keyN)))
       return
    }
 
    if (inputString === chosenWord) {
       alert('Correct! You win!')
       changeColour(row, correctInput)
+      //to store user input
+      let key = 'word'
+      let n = tries.toString()
+      let keyN = key.concat(n)
+      window.localStorage.setItem(keyN, JSON.stringify(inputString))
+      console.log(JSON.parse(window.localStorage.getItem(keyN)))
+
       tries = 0
    } else {
       tries -= 1
       guess = []
       nextLetter = 0
+      //to store user input
+      let key = 'word'
+      let n = tries.toString()
+      let keyN = key.concat(n)
+      window.localStorage.setItem(keyN, JSON.stringify(inputString))
+      console.log(JSON.parse(window.localStorage.getItem(keyN)))
 
       if (tries === 0) {
          alert('You lose. Guesses ran out.')
          alert(`Correct word: "${chosenWord}"`)
+         //to store user input
+         let key = 'word'
+         let n = tries.toString()
+         let keyN = key.concat(n)
+         window.localStorage.setItem(keyN, JSON.stringify(inputString))
+         console.log(JSON.parse(window.localStorage.getItem(keyN)))
       }
    }
 }

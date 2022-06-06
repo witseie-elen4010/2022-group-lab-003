@@ -29,9 +29,12 @@ app.post('/', async function (req, res) { //login to send data to the database t
    let user = req.body.username
    let pass = req.body.password
    
-   // retrieve word from sessionStorage
-   let word = sessionStorage.getItem('word')
-   console.log(word)
+   // // retrieve word from localStorage
+   // let key = 'word'
+   // let n = '5'
+   // let keyN = key.concat(n)
+   // let word = window.localStorage.getItem(keyN)
+   // console.log(word)
 
    // Make a query to the database
     db.pools
@@ -40,7 +43,7 @@ app.post('/', async function (req, res) { //login to send data to the database t
     return pool.request() //multiple table query. Replace 'hello' with actual guess
     .query(`BEGIN TRANSACTION
             INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));
-            INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','${word}');
+            INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','test');
             COMMIT`) 
     })
     // redirect after login to the game
@@ -53,24 +56,14 @@ app.post('/', async function (req, res) { //login to send data to the database t
     })
    
  })
-
-//  // keyboard CLICK input
-//  document.addEventListener('keyup', (event) => {
-
-//    let keyInput = String(event.key)
-
-//    if (keyInput === 'Enter') {
-//       checkInput
-//       return
-//    }
-
-// })
+ let key = 'word'
+ let n = '5'
+ let keyN = key.concat(n)
+ let word = window.localStorage.getItem(keyN)
+ console.log(word)
 
 module.exports = app
 
 const port = process.env.PORT || 3000
 app.listen(port)
 console.log('Express server running on port', port)
-// const getPath = path.join(__dirname,'./public/scripts/main.js')
-// const getWord = require(getPath)
-// console.log('word-from-main.js:', getWord)
