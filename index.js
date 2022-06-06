@@ -31,7 +31,7 @@ app.post('/', async function (req, res) { //login to send data to the database t
    
    // retrieve word from sessionStorage
    let word = sessionStorage.getItem('word')
-   
+   console.log(word)
 
    // Make a query to the database
     db.pools

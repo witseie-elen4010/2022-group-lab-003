@@ -89,7 +89,7 @@ function insertLetter(input) {
    
    //using sessionStorage to store user input
    sessionStorage.setItem('word', `${guess}`)
-  // console.log(sessionStorage.getItem('word'))
+  console.log(sessionStorage.getItem('word'))
 }
 
 function deleteLetter() {

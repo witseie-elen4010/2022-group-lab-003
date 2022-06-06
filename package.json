@@ -18,7 +18,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "devStart": "nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "devDependencies": {
     "dotenv": "^16.0.1",
