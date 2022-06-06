@@ -204,16 +204,14 @@ function checkInput() {
 }
 
 // keyboard CLICK input
-// function getInput() { document.addEventListener('keyup', (event) => {
+export function getInput() { document.addEventListener('keyup', (event) => {
 
-//    let Input = String(event.key)
+   let Input = String(event.key)
 
-//    if (Input === 'Enter') {
+   if (Input === 'Enter') {
       
-//       checkInput()
-//       return Input
-//    }
-// })
-// }
-
-//module.exports = { getInput }
+      checkInput()
+      return Input
+   }
+})
+}

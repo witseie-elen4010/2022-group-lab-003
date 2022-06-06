@@ -1,7 +1,11 @@
 'use strict'
 // For routes and azure setup
 
-//import { checkInput } from './public/scripts/main.js'
+//import { getInput } from './public/scripts/main.js'
+
+// $.getScript('/public/scripts/main.js' , function () {
+//         getInput()
+// })
 
 const path = require('path')
 const express = require('express')
@@ -10,6 +14,7 @@ const mainRouter = require('./routes/mainRoutes')
 let users = []
 const bcrypt = require('bcrypt')
 const db = require('./database/db.js')
+//const main = require('./public/scripts/main.js')
 
 app.use(mainRouter)
 
