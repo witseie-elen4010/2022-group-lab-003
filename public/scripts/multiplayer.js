@@ -172,47 +172,52 @@ function playerConnectedOrDisconnected (num) { // looking for the class in html 
   if (parseInt(num) === playerNum) document.querySelector(player).style.fontWeight = 'bold'
 }
 
-document.getElementById('keyboard').addEventListener('click', (event) => {
+document.addEventListener('keyup', (event) => {
 
   
   if (tries === 0) {
     return
   }
-
-  const target = event.target
-  // if the key that was clicked is not a keyboard button
-  if (!target.classList.contains('keyboard-button')) {
-    return
+  let keyInput = String(event.key)
+  if (keyInput === 'Backspace' && nextLetter !== 0) {
+     deleteLetter()
+     return
   }
 
-  const key = target.textContent
-  if (key === 'Del') {
-    deleteLetter()
-    return
+  if (keyInput === 'Enter') {
+     checkInput()
+     return
   }
 
-  if (key === 'Enter') {
-
-    checkInput()
-   
-    
-    return
-  }
-
-  // checking if the key is any of the alphabet
-  const found = key.match(/[a-z]/gi)
+  let found = keyInput.match(/[a-z]/gi)
   if (!found || found.length > 1) {
-    // if none of the above or they pressed more than 1 key
+     return
   } else {
-    insertLetter(key)
+     insertLetter(keyInput)
   }
 })
 
-function insertLetter (input) {
-  if (nextLetter === 5) {
-    return
+document.getElementById('keyboard').addEventListener('click', (event) => {
+  const target = event.target
+
+  if (!target.classList.contains('keyboard-button')) {
+     return
   }
-  input = input.toLowerCase()
+  let key = target.textContent
+
+  if (key === 'Del') {
+     key = 'Backspace'
+  }
+
+  document.dispatchEvent(new KeyboardEvent('keyup', { key: key }))
+})
+
+function insertLetter(input) {
+   if (nextLetter === 5) {
+      return
+   }
+   input = input.toLowerCase()
+
 
   // gets the row of the current guess
   const row = document.getElementsByClassName('row-part1')[6 - tries]
