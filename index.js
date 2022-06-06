@@ -33,6 +33,10 @@ app.post('/', async function (req, res) { //login to send data to the database t
    let user = req.body.username
    let pass = req.body.password
    
+   // retrieve word from local storage
+   //let main = window.location.href('/public/scripts/main.js')
+   let word = 'hello'
+
    // Make a query to the database
     db.pools
     // Run query
@@ -40,7 +44,7 @@ app.post('/', async function (req, res) { //login to send data to the database t
     return pool.request() //multiple table query. Replace 'hello' with actual guess
     .query(`BEGIN TRANSACTION
             INSERT INTO UserLogin(USERNAME,PASSWORD) VALUES('${user}',HASHBYTES('MD5','${pass}'));
-            INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','hello');
+            INSERT INTO GameLogDetails(USERNAME,INPUT_WORD) VALUES('${user}','${word}');
             COMMIT`) 
     })
     // redirect after login to the game
