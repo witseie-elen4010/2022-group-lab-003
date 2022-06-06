@@ -1,13 +1,10 @@
 'use strict'
-// For routes and azure setup
-
-//import { getInput } from './public/scripts/main.js'
 
 const path = require('path')
 const express = require('express')
 const app = express()
 const mainRouter = require('./routes/mainRoutes')
-let users = []
+//let users = []
 const bcrypt = require('bcrypt')
 const db = require('./database/db.js')
 const LocalStorage = require('node-localstorage').LocalStorage, localStorage = new LocalStorage('./scratch');
@@ -34,7 +31,6 @@ app.post('/', async function (req, res) { //login to send data to the database t
    let user = req.body.username
    let pass = req.body.password
    
-
 
    // Make a query to the database
     db.pools

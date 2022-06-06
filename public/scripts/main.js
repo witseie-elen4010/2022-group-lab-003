@@ -86,7 +86,6 @@ function insertLetter(input) {
    square.classList.add('column-piece') // adding current letter to guess
    guess.push(input) // adds 1 to number of letters in row
    nextLetter += 1
-
 }
 
 function deleteLetter() {
