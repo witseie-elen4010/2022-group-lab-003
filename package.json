@@ -1,7 +1,7 @@
 {
   "name": "2022-group-lab-003",
   "version": "1.0.0",
-  "description": "The following is the README file for Group 3's Lab Project for ELEN4010 2022.",
+  "description": "The following is the Multi-Wordle game implementation for Group 3's Lab Project for ELEN4010 2022.",
   "main": "index.js",
   "author": "group-003",
   "license": "ISC",
@@ -15,22 +15,24 @@
     "sqlite3": "^5.0.8",
     "tedious": "^14.5.0"
   },
-  "scripts": {
-    "test": "jest --coverage",
-    "devStart": "nodemon index.js"
-  },
   "devDependencies": {
-    "dotenv": "^16.0.1",
+   "dotenv": "^16.0.1",
     "expect-playwright": "^0.8.0",
     "jest": "^28.1.0",
     "jest-playwright-preset": "^1.7.2",
     "nodemon": "^2.0.16",
     "playwright": "^1.22.2"
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
+},
+"jest": {
+   "setupFilesAfterEnv": [
       "expect-playwright"
-    ]
+   ]
+},
+  "scripts": {
+    "test": "jest --coverage",
+    "start": "node index",
+    "dev": "nodemon index"
+    
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,8 @@
   "bugs": {
     "url": "https://github.com/witseie-elen4010/2022-group-lab-003/issues"
   },
+
   "homepage": "https://github.com/witseie-elen4010/2022-group-lab-003#readme",
   "keywords": []
+
 }
