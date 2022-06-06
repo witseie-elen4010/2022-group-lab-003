@@ -198,6 +198,7 @@ function checkInput() {
       if (tries === 0) {
          alert('You lose. Guesses ran out.')
          alert(`Correct word: "${chosenWord}"`)
+         changeColour(row, correctInput)
       }
    }
 }
