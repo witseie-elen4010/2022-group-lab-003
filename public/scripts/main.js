@@ -88,7 +88,7 @@ function insertLetter(input) {
    nextLetter += 1
    
    //using sessionStorage to store user input
-   sessionStorage.setItem('word', `${guess}`)
+   sessionStorage.setItem('word', JSON.stringify(`${guess}`))
   // console.log(sessionStorage.getItem('word'))
 }
 

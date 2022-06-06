@@ -1,13 +1,10 @@
 'use strict'
-// For routes and azure setup
-
-//import { getInput } from './public/scripts/main.js'
 
 const path = require('path')
 const express = require('express')
 const app = express()
 const mainRouter = require('./routes/mainRoutes')
-let users = []
+//let users = []
 const bcrypt = require('bcrypt')
 const db = require('./database/db.js')
 const sessionStorage = require('sessionstorage')
@@ -31,7 +28,6 @@ app.post('/', async function (req, res) { //login to send data to the database t
    
    // retrieve word from sessionStorage
    let word = sessionStorage.getItem('word')
-   
 
    // Make a query to the database
     db.pools
