@@ -18,6 +18,7 @@ const multiplayerButton = document.querySelector('#linkButton2')
 let playerNum = 0 // assume player 0 until told otherwise
 let currentPlayer = 'opponent1'
 
+// Creating board where player enters their inputs
 function createWordleBoard1 () {
   const board = document.getElementById('wordle-board1')
   // the board creation is the same as how a 2d array is created (nested-for loop).
@@ -38,10 +39,11 @@ function createWordleBoard1 () {
 }
 createWordleBoard1()
 
+// Creating the boards of the opponents
 function createWordleBoard2 ( recieveNum, recieveCol) {
   const board = document.getElementById('wordle-board2')
   if(recieveNum === 1|| recieveNum === 0 || recieveNum === 2) {
-    console.log('draw board 2')
+  
       const row = document.createElement('div')
       row.className = 'row-part2'
       for (let j = 0; j < 5; j++) {
@@ -61,7 +63,6 @@ function createWordleBoard2 ( recieveNum, recieveCol) {
 function createWordleBoard3 ( recieveNum, recieveCol) {
   const board = document.getElementById('wordle-board3')
   if(recieveNum === 1|| recieveNum === 2) {
-    console.log('draw board 3')
       const row = document.createElement('div')
       row.className = 'row-part3'
       for (let j = 0; j < 5; j++) {
@@ -78,9 +79,9 @@ function createWordleBoard3 ( recieveNum, recieveCol) {
 }
 }
 
+// Functions for ensuring correct opponent boards are displayed on different pages
 function creatingOppBoards(recieveNum ,recieveCol , currentPlayer) {
-  console.log('in opp board')
-  console.log(recieveNum)
+  
   if (currentPlayer === 'opponent1')
   {
     if(recieveNum === 1) {
@@ -114,10 +115,6 @@ function creatingOppBoards(recieveNum ,recieveCol , currentPlayer) {
 }
 
 
-
-
-
-
 const socket = io()
 
 // get player number
@@ -131,7 +128,7 @@ socket.on('player-number', num => {
     } else if (playerNum === 2) {
       currentPlayer = 'opponent3'
     }
-    console.log(playerNum)
+    
     // other players present
     socket.emit('check-players')
   }
@@ -140,29 +137,28 @@ socket.on('player-number', num => {
 // another player has connected or disconnected
 socket.on('player-connection', num => {
   playerConnectedOrDisconnected(num)
-  console.log(`Player number ${num} has connected/disconnected`)
 })
 
 // listening for opponents inputs 
 socket.on('IdentifyingPlayerColours', ({ playerNum1, colourArray1}) => {
-  console.log('i am listening')
   recieveNum = playerNum1
   recieveCol = colourArray1
-  console.log(recieveNum,recieveCol)
+  
   const delay = 250 * 5
   setTimeout(() => {
-    console.log(currentPlayer)
+   // Drawing opponents boards
     creatingOppBoards(recieveNum,recieveCol, currentPlayer)
-
   }, delay)
 
   // recieving winner message 
   socket.on('Winner', playerNum => {
     console.log(`Player ${playerNum} is the winner`)
+    // Alerting other players that they lost 
+    infoDisplay.innerHTML = 'You Lose!'
+    alert('You Lose!')
   })
 
-  
- // createWordleBoard2(recieveNum, recieveCol)
+
 })
 
 function playerConnectedOrDisconnected (num) { // looking for the class in html file
@@ -172,47 +168,51 @@ function playerConnectedOrDisconnected (num) { // looking for the class in html 
   if (parseInt(num) === playerNum) document.querySelector(player).style.fontWeight = 'bold'
 }
 
-document.getElementById('keyboard').addEventListener('click', (event) => {
+document.addEventListener('keyup', (event) => {
 
-  
   if (tries === 0) {
     return
   }
-
-  const target = event.target
-  // if the key that was clicked is not a keyboard button
-  if (!target.classList.contains('keyboard-button')) {
-    return
+  let keyInput = String(event.key)
+  if (keyInput === 'Backspace' && nextLetter !== 0) {
+     deleteLetter()
+     return
   }
 
-  const key = target.textContent
-  if (key === 'Del') {
-    deleteLetter()
-    return
-  }
-
-  if (key === 'Enter') {
-
+  if (keyInput === 'Enter') {
     checkInput()
-   
-    
-    return
+     return
   }
 
-  // checking if the key is any of the alphabet
-  const found = key.match(/[a-z]/gi)
+  let found = keyInput.match(/[a-z]/gi)
   if (!found || found.length > 1) {
-    // if none of the above or they pressed more than 1 key
+     return
   } else {
-    insertLetter(key)
+     insertLetter(keyInput)
   }
 })
 
-function insertLetter (input) {
-  if (nextLetter === 5) {
-    return
+document.getElementById('keyboard').addEventListener('click', (event) => {
+  const target = event.target
+
+  if (!target.classList.contains('keyboard-button')) {
+     return
   }
-  input = input.toLowerCase()
+  let key = target.textContent
+
+  if (key === 'Del') {
+     key = 'Backspace'
+  }
+
+  document.dispatchEvent(new KeyboardEvent('keyup', { key: key }))
+})
+
+function insertLetter(input) {
+   if (nextLetter === 5) {
+      return
+   }
+   input = input.toLowerCase()
+
 
   // gets the row of the current guess
   const row = document.getElementsByClassName('row-part1')[6 - tries]
@@ -241,25 +241,27 @@ function deleteLetter () {
   nextLetter -= 1
 }
 
-function shadeKeyBoard (letter, _colour) {
-  for (const elem of document.getElementsByClassName('keyboard-button')) {
-    if (elem.textContent === letter) {
-      const oldColour = elem.style.backgroundColour
-      if (oldColour === 'green') {
-        return
-      }
+function changeKeyboardColour(letter, _colour) {
+  for (let elem of document.getElementsByClassName('keyboard-button')) {
+     if (elem.textContent === letter) {
+        const oldColour = window
+           .getComputedStyle(elem)
+           .getPropertyValue('background-color')
+      
+        if (oldColour === 'blue') {
+           return
+        }
 
-      if (oldColour === 'yellow' && _colour !== 'green') {
-        return
+        if (oldColour === 'pink' && _colour !== 'blue') {
+           return
+        }
+        elem.style.background = _colour
+        break
       }
-      elem.style.backgroundColour = _colour
-      break
+     }
     }
-  }
-}
 
 function changeColour (row, correctInput) {
-  console.log('in change colour')
   colourArray = []
   for (let i = 0; i < 5; i++) {
     let letterColour = ''
@@ -274,10 +276,10 @@ function changeColour (row, correctInput) {
       colourArray.push(letterColour)
     } else {
       if (guess[i] === correctInput[i]) {
-        letterColour = 'green'
+        letterColour = 'blue'
         colourArray.push(letterColour)
       } else {
-        letterColour = 'yellow'
+        letterColour = 'pink'
         colourArray.push(letterColour)
       }
       
@@ -287,22 +289,19 @@ function changeColour (row, correctInput) {
     const delay = 250 * i
     setTimeout(() => {
       box.style.backgroundColor = letterColour
-      shadeKeyBoard(letter, letterColour)
+      changeKeyboardColour(letter, letterColour)
     }, delay)
-    
   }
 
   return colourArray
   
 }
 
-function checkInput () {
-  console.log('checkinput')
+function checkInput() {
+ 
   const row = document.getElementsByClassName('row-part1')[6 - tries]
   let inputString = ''
   const correctInput = Array.from(chosenWord)
- console.log('chosen word')
- console.log(chosenWord)
   for (const val of guess) {
     inputString += val
   }
@@ -347,7 +346,6 @@ function checkInput () {
     alert('Correct! You win!')
     changeColour(row, correctInput)
     socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
-    console.log("after change colour")
     socket.emit('CheckWinner', playerNum)
     
 
@@ -358,8 +356,11 @@ function checkInput () {
     nextLetter = 0
     
     if (tries === 0) {
+      changeColour(row, correctInput)
+      socket.emit('IdentifyingPlayer',  { playerNum: playerNum, colourArray: colourArray })
       alert('You lose. Guesses ran out.')
       alert(`Correct word: "${chosenWord}"`)
+      infoDisplay.innerHTML = 'You Lose!'
     }
   }
    
